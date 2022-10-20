@@ -10,6 +10,7 @@ import (
 
 var engine *xorm.Engine
 
+// 初始化数据库
 func InitDB() *xorm.Engine {
 	c := u.GetConf()
 	var err error
@@ -33,5 +34,4 @@ func InitTable() {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-
 }
