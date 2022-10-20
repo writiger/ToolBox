@@ -4,3 +4,5 @@ Port: "8080"
 Ip : "127.0.0.1"
 # 放行前端域名
 DomainName : "*"
+# 数据库资源名称
+DataSourceName : "root:123456@/tool_box?charset=utf8"
