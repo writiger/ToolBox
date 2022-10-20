@@ -8,9 +8,10 @@ import (
 )
 
 type Conf struct {
-	Port       string `yaml:"Port"`
-	IP         string `yaml:"Ip"`
-	DomainName string `yaml:"DomainName"`
+	Port               string `yaml:"Port"`
+	IP                 string `yaml:"Ip"`
+	DomainName         string `yaml:"DomainName"`
+	DataSourceName string `yaml:"DataSourceName"`
 }
 
 var C *Conf
