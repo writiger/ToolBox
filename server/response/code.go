@@ -32,4 +32,5 @@ var (
 	ErrUserBanning          = response(30103, "用户封禁中")
 	ErrUserPermissionDenied = response(30104, "权限不足")
 	ErrUserAlreadyExist     = response(30105, "该账号已被使用")
+	ErrUserVerification     = response(30106, "验证码错误或过期")
 )
