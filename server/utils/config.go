@@ -8,10 +8,13 @@ import (
 )
 
 type Conf struct {
-	Port               string `yaml:"Port"`
-	IP                 string `yaml:"Ip"`
-	DomainName         string `yaml:"DomainName"`
-	DataSourceName string `yaml:"DataSourceName"`
+	Port            string `yaml:"Port"`
+	IP              string `yaml:"Ip"`
+	DomainName      string `yaml:"DomainName"`
+	DataSourceName  string `yaml:"DataSourceName"`
+	RedisSourceName string `yaml:"RedisSourceName"`
+	RedisPassword   string `yaml:"RedisPassword"`
+	RedisDB         int    `yaml:"RedisDB"`
 }
 
 var C *Conf

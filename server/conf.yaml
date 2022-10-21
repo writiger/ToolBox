@@ -6,3 +6,11 @@ Ip : "127.0.0.1"
 DomainName : "*"
 # 数据库资源名称
 DataSourceName : "root:123456@/tool_box?charset=utf8"
+
+# Redis相关设置
+# Redis地址
+RedisSourceName : "localhost:6379"
+# Redis密码 如无密码则为空
+RedisPassword : ""
+# Redis数据库选择 默认为0
+RedisDB : 0
