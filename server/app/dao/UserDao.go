@@ -10,7 +10,7 @@ import (
 var engine *xorm.Engine
 
 func init() {
-	engine = domain.InitDB()
+	engine = domain.InitSqlDB()
 }
 
 func UserAdd(user domain.User) error {
