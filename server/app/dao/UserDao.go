@@ -13,7 +13,17 @@ func init() {
 	engine = domain.InitSqlDB()
 }
 
-func UserAdd(user domain.User) error {
+func UserInsert(user domain.User) error {
 	engine.Insert(&user)
 	return nil
+}
+
+func UserIsExist(account string) (bool, error) {
+	has, err := engine.Exist(&domain.User{
+		Account: account,
+	})
+	if err != nil {
+		return has, err
+	}
+	return has, nil
 }
