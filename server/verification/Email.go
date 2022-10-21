@@ -9,7 +9,7 @@ import (
 	"github.com/jordan-wright/email"
 )
 
-func SendMail(receiver string, registercode int) error {
+func SendMail(receiver string, registerCode int) error {
 	c := utils.GetConf()
 	// 简单设置 log 参数
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
@@ -20,9 +20,9 @@ func SendMail(receiver string, registercode int) error {
 	// 设置主题
 	em.Subject = "Verify your email address --ToolBoxW"
 	em.HTML = []byte(`
-		<soan> 验证码具有时效性 请及时验证</span>
+		<span> 验证码具有时效性 请及时验证</span>
 		<span>要验证您的电子邮件地址，请使用安全代码:</span>
-		<span style="background:#64a0e4;font-size:32px;color:#ffffff;">` + strconv.Itoa(registercode) + `</span>
+		<span style="background:#64a0e4;font-size:32px;color:#ffffff;">` + strconv.Itoa(registerCode) + `</span>
 		<h1>这是一个简单的开源练手项目</h1>
 		<a style="font-size:32px;text-decoration:none;" href="https://github.com/writiger/ToolBox">项目地址</a>
 		<br>

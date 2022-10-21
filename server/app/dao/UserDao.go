@@ -24,9 +24,11 @@ func init() {
 	c = utils.GetConf()
 }
 
-// TODO
 func UserInsert(user domain.User) error {
-	engine.Insert(&user)
+	_, err := engine.Insert(&user)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -36,6 +38,11 @@ func UserEmailRedisSave(account string, code int) error {
 		return err
 	}
 	return nil
+}
+
+func UserEmailCodeGet(account string) string {
+	res, _ := rc.Get(account).Result()
+	return res
 }
 
 func UserIsExist(account string) (bool, error) {
