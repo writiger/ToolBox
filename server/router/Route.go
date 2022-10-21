@@ -17,5 +17,7 @@ func collectUserRoute(r *gin.Engine) {
 	// 获取用户列表
 	r.GET(userApiURI)
 	// 请求发送验证码
-	r.POST(userApiURI+"/mail", api.UserRegister)
+	r.POST(userApiURI+"/mail", api.UserEmailVerify)
+	// 注册用户
+	r.POST(userApiURI, api.UserRegister)
 }
