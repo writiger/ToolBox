@@ -2,7 +2,7 @@ package main
 
 import (
 	"server/middleware"
-	"server/router"
+	route "server/router"
 	u "server/utils"
 
 	"github.com/gin-gonic/gin"
