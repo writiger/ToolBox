@@ -8,13 +8,17 @@ import (
 )
 
 type Conf struct {
-	Port            string `yaml:"Port"`
-	IP              string `yaml:"Ip"`
-	DomainName      string `yaml:"DomainName"`
-	DataSourceName  string `yaml:"DataSourceName"`
-	RedisSourceName string `yaml:"RedisSourceName"`
-	RedisPassword   string `yaml:"RedisPassword"`
-	RedisDB         int    `yaml:"RedisDB"`
+	Port                    string `yaml:"Port"`
+	IP                      string `yaml:"Ip"`
+	DomainName              string `yaml:"DomainName"`
+	DataSourceName          string `yaml:"DataSourceName"`
+	RedisSourceName         string `yaml:"RedisSourceName"`
+	RedisPassword           string `yaml:"RedisPassword"`
+	RedisDB                 int    `yaml:"RedisDB"`
+	RegisterCodeFailureTime int    `yaml:"RegisterCodeFailureTime"`
+	EmailAccount            string `yaml:"EmailAccount"`
+	EmailPassword           string `yaml:"EmailPassword"`
+	EmailAuthorizationCode  string `yaml:"EmailAuthorizationCode"`
 }
 
 var C *Conf
