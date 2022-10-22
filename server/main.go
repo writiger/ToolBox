@@ -2,8 +2,8 @@ package main
 
 import (
 	"server/middleware"
-	route "server/router"
-	utils "server/utils"
+	"server/router"
+	"server/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,16 +11,16 @@ import (
 func main() {
 	utils.Hello()
 	c := utils.GetConf()
-	router := gin.Default()
+	r := gin.Default()
 
 	// 使用中间件配置跨域
-	router.Use(middleware.Cors())
+	r.Use(middleware.Cors())
 
 	// 注册路由
-	route.CollectRoute(router)
+	route.CollectRoute(r)
 
 	// 开始监听
-	err := router.Run(c.IP + ":" + c.Port)
+	err := r.Run(c.IP + ":" + c.Port)
 	if err != nil {
 		panic(err)
 	}
