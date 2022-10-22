@@ -3,14 +3,14 @@ package main
 import (
 	"server/middleware"
 	route "server/router"
-	u "server/utils"
+	utils "server/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	u.Hello()
-	c := u.GetConf()
+	utils.Hello()
+	c := utils.GetConf()
 	router := gin.Default()
 
 	// 使用中间件配置跨域
