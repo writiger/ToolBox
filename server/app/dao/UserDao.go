@@ -2,6 +2,7 @@ package dao
 
 import (
 	"server/app/domain"
+	"server/error_code"
 	"server/utils"
 	"time"
 
@@ -25,6 +26,10 @@ func init() {
 }
 
 func UserInsert(user domain.User) error {
+	has, _ := UserIsExist(user.Account)
+	if has {
+		return errorcode.GetErr(30105)
+	}
 	_, err := engine.Insert(&user)
 	if err != nil {
 		return err
