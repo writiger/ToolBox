@@ -4,11 +4,6 @@ import (
 	"errors"
 )
 
-const (
-	ERR_PARAM              = 10001
-	ERR_USER_ALREADY_EXIST = 30105
-)
-
 // 错误码规则:
 // (1) 错误码需为 > 0 的数;
 //
@@ -26,13 +21,26 @@ const (
 // C模块，表示函数内错误位置/内容，普通报错01~98，panic错误99，自己定义一些常用的错误码
 
 func GetErr(code int) error {
-	return errors.New(ErrMap[code])
+	return errors.New("错误信息:" + ErrMap[code])
 }
 
 var ErrMap map[int]string
 
+const (
+	ErrParam             = 10001
+	ErrUserService       = 30100
+	ErrUserWrongPassword = 30101
+	ErrUserNil           = 30102
+	ErrUserAlreadyExist  = 30103
+	ErrUserEmailFail     = 30104
+)
+
 func init() {
 	ErrMap = make(map[int]string)
 	ErrMap[10001] = "参数有误"
-	ErrMap[30105] = "用户已存在"
+	ErrMap[30100] = "用户服务错误"
+	ErrMap[30101] = "用户密码错误"
+	ErrMap[30102] = "用户不存在"
+	ErrMap[30103] = "用户已存在"
+	ErrMap[30104] = "验证码失效或错误"
 }
