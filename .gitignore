@@ -3,3 +3,4 @@ server/main_test.go
 
 .idea/
 server/conf.yaml
+server/conf.ini
