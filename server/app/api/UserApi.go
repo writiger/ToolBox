@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"server/app/domain"
 	"server/app/service"
@@ -18,7 +19,7 @@ func UserRegister(ctx *gin.Context) {
 	// 2. redis中验证验证码是否符合邮箱
 	conform := service.UserEmailVerifyCodeService(account, code)
 	if !conform {
-		ctx.JSON(http.StatusOK, response.ErrUserVerification)
+		ctx.JSON(http.StatusOK, response.ErrUserEmailFail)
 		return
 	}
 	// 3. 生成User
@@ -52,4 +53,25 @@ func UserEmailVerify(ctx *gin.Context) {
 	case 500:
 		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
 	}
+}
+
+func UserLogin(ctx *gin.Context) {
+	// 1. 读取POST参数
+	account := ctx.PostForm("account")
+	password := ctx.PostForm("password")
+	// 2. 提交登录服务
+	token, err := service.UserLoginService(domain.User{
+		Account:  account,
+		Password: utils.MD5(password),
+	})
+	fmt.Println(token, err)
+	// 3. 登陆成功 返回session
+	if token != "" {
+		ctx.JSON(http.StatusOK, response.OK.WithData(gin.H{
+			"token": token,
+		}))
+		return
+	}
+	// 4. 登陆失败 返回失败原因
+	ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
 }

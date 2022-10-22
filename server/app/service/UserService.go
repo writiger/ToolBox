@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"server/app/dao"
 	"server/app/domain"
+	errorcode "server/error_code"
 	"server/verification"
 )
 
@@ -36,7 +37,36 @@ func UserEmailVerifyCodeService(account string, code string) bool {
 	return code == codeExist
 }
 
-func UserAddService(newUser domain.User) error {
-	err := dao.UserInsert(newUser)
+func UserAddService(inputUser domain.User) error {
+	err := dao.UserInsert(inputUser)
 	return err
+}
+
+// UserLoginService
+// @return string "由查询到的用户生成token 返回空则登陆失败"
+func UserLoginService(inputUser domain.User) (string, error) {
+	has, err := dao.UserIsExist(inputUser.Account)
+	if err != nil {
+		return "", err
+	}
+	if !has {
+		// 用户不存在
+		return "", errorcode.GetErr(errorcode.ErrUserNil)
+	} else {
+		// 用户存在
+		login, err := dao.UserLogin(&inputUser)
+		if err != nil {
+			return "", err
+		}
+		if login.Id != 0 {
+			// 登陆成功
+			token, err2 := verification.ReleaseToken(login)
+			if err2 != nil {
+				return "", err2
+			}
+			return token, nil
+		} else {
+			return "", errorcode.GetErr(errorcode.ErrUserWrongPassword)
+		}
+	}
 }

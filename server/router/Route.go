@@ -20,4 +20,7 @@ func collectUserRoute(r *gin.Engine) {
 	r.POST(userApiURI+"/mail", api.UserEmailVerify)
 	// 注册用户
 	r.POST(userApiURI, api.UserRegister)
+	// 登录
+	r.POST(userApiURI+"/login", api.UserLogin)
+
 }

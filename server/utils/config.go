@@ -19,6 +19,8 @@ type Conf struct {
 	EmailAccount            string `yaml:"EmailAccount"`
 	EmailPassword           string `yaml:"EmailPassword"`
 	EmailAuthorizationCode  string `yaml:"EmailAuthorizationCode"`
+	JWTKey                  string `yaml:"JWTKey"`
+	ContinuousTime          int    `yaml:"ContinuousTime"`
 }
 
 var C *Conf

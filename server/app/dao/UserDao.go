@@ -28,7 +28,7 @@ func init() {
 func UserInsert(user domain.User) error {
 	has, _ := UserIsExist(user.Account)
 	if has {
-		return errorcode.GetErr(30105)
+		return errorcode.GetErr(errorcode.ErrUserAlreadyExist)
 	}
 	_, err := engine.Insert(&user)
 	if err != nil {
@@ -58,4 +58,17 @@ func UserIsExist(account string) (bool, error) {
 		return has, err
 	}
 	return has, nil
+}
+
+func UserLogin(userLogin *domain.User) (domain.User, error) {
+	has, err := engine.Get(userLogin)
+	if err != nil {
+		return domain.User{}, err
+	}
+
+	if has {
+		return *userLogin, nil
+	} else {
+		return domain.User{}, errorcode.GetErr(errorcode.ErrUserWrongPassword)
+	}
 }

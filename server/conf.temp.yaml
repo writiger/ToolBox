@@ -30,3 +30,6 @@ EmailPassword : "邮箱密码"
 
 # 邮箱服务授权码
 EmailAuthorizationCode : "开启邮箱服务后生成授权码"
+
+# 密钥
+JWTKey : "随便想一个"

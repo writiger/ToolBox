@@ -1,5 +1,7 @@
 package response
 
+import "server/error_code"
+
 // 错误码规则:
 // (1) 错误码需为 > 0 的数;
 //
@@ -26,11 +28,9 @@ var (
 
 	//用户模块错误
 
-	ErrUserService          = response(30100, "用户服务异常")
-	ErrUserWrongPassword    = response(30101, "用户密码错误")
-	ErrUserNil              = response(30102, "用户不存在")
-	ErrUserBanning          = response(30103, "用户封禁中")
-	ErrUserPermissionDenied = response(30104, "权限不足")
-	ErrUserAlreadyExist     = response(30105, "该账号已被使用")
-	ErrUserVerification     = response(30106, "验证码错误或过期")
+	ErrUserService       = response(errorcode.ErrUserService, "用户服务异常")
+	ErrUserWrongPassword = response(errorcode.ErrUserWrongPassword, "用户密码错误")
+	ErrUserNil           = response(errorcode.ErrUserNil, "用户不存在")
+	ErrUserAlreadyExist  = response(errorcode.ErrUserAlreadyExist, "用户已存在")
+	ErrUserEmailFail     = response(errorcode.ErrUserEmailFail, "验证码失效或错误")
 )
