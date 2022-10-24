@@ -3,27 +3,8 @@ package dao
 import (
 	"server/app/domain"
 	"server/error_code"
-	"server/utils"
 	"time"
-
-	"github.com/go-redis/redis"
-	"xorm.io/xorm"
 )
-
-// 声明engine后使用xorm
-var engine *xorm.Engine
-
-// 声明redis client
-var rc *redis.Client
-
-// 声明配置文件
-var c *utils.Conf
-
-func init() {
-	engine = domain.InitSqlDB()
-	rc = domain.InitRedisClient()
-	c = utils.GetConf()
-}
 
 func UserInsert(user domain.User) error {
 	has, _ := UserIsExist(user)
@@ -31,18 +12,12 @@ func UserInsert(user domain.User) error {
 		return errorcode.GetErr(errorcode.ErrUserAlreadyExist)
 	}
 	_, err := engine.Insert(&user)
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func UserEmailRedisSave(inputUser domain.User, code int) error {
 	err := rc.Set(inputUser.Account, code, time.Duration(c.RegisterCodeFailureTime)*time.Second).Err()
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func UserEmailCodeGet(inputUser domain.User) string {
@@ -52,10 +27,7 @@ func UserEmailCodeGet(inputUser domain.User) string {
 
 func UserIsExist(inputUser domain.User) (bool, error) {
 	has, err := engine.Exist(&inputUser)
-	if err != nil {
-		return has, err
-	}
-	return has, nil
+	return has, err
 }
 
 func UserLogin(inputUser *domain.User) (domain.User, error) {
