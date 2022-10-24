@@ -31,4 +31,5 @@ func collectMemoRoute(r *gin.Engine) {
 
 	// 根据owner查询memo
 	r.GET(memoApiURI+"/:owner", api.MemoQueryByOwner)
+	// 新增
 }
