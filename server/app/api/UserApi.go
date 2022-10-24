@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"server/app/domain"
 	"server/app/service"
@@ -64,7 +63,6 @@ func UserLogin(ctx *gin.Context) {
 		Account:  account,
 		Password: utils.MD5(password),
 	})
-	fmt.Println(token, err)
 	// 3. 登陆成功 返回session
 	if token != "" {
 		ctx.JSON(http.StatusOK, response.OK.WithData(gin.H{

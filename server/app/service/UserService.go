@@ -66,6 +66,7 @@ func UserLoginService(inputUser domain.User) (string, error) {
 		}
 		if login.Id != 0 {
 			// 登陆成功
+			login.Password = ""
 			token, err2 := verification.ReleaseToken(login)
 			if err2 != nil {
 				return "", err2
