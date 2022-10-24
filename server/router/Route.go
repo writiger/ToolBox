@@ -9,6 +9,7 @@ import (
 func CollectRoute(r *gin.Engine) {
 	// 按照实体类注册路由 便于管理
 	collectUserRoute(r)
+	collectMemoRoute(r)
 }
 
 func collectUserRoute(r *gin.Engine) {
@@ -23,4 +24,11 @@ func collectUserRoute(r *gin.Engine) {
 	// 登录
 	r.POST(userApiURI+"/login", api.UserLogin)
 
+}
+
+func collectMemoRoute(r *gin.Engine) {
+	memoApiURI := "/api/memo"
+
+	// 根据owner查询memo
+	r.GET(memoApiURI+"/:owner", api.MemoQueryByOwner)
 }
