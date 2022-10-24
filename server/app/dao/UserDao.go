@@ -26,7 +26,7 @@ func init() {
 }
 
 func UserInsert(user domain.User) error {
-	has, _ := UserIsExist(user.Account)
+	has, _ := UserIsExist(user)
 	if has {
 		return errorcode.GetErr(errorcode.ErrUserAlreadyExist)
 	}
@@ -37,37 +37,35 @@ func UserInsert(user domain.User) error {
 	return nil
 }
 
-func UserEmailRedisSave(account string, code int) error {
-	err := rc.Set(account, code, time.Duration(c.RegisterCodeFailureTime)*time.Second).Err()
+func UserEmailRedisSave(inputUser domain.User, code int) error {
+	err := rc.Set(inputUser.Account, code, time.Duration(c.RegisterCodeFailureTime)*time.Second).Err()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func UserEmailCodeGet(account string) string {
-	res, _ := rc.Get(account).Result()
+func UserEmailCodeGet(inputUser domain.User) string {
+	res, _ := rc.Get(inputUser.Account).Result()
 	return res
 }
 
-func UserIsExist(account string) (bool, error) {
-	has, err := engine.Exist(&domain.User{
-		Account: account,
-	})
+func UserIsExist(inputUser domain.User) (bool, error) {
+	has, err := engine.Exist(&inputUser)
 	if err != nil {
 		return has, err
 	}
 	return has, nil
 }
 
-func UserLogin(userLogin *domain.User) (domain.User, error) {
-	has, err := engine.Get(userLogin)
+func UserLogin(inputUser *domain.User) (domain.User, error) {
+	has, err := engine.Get(inputUser)
 	if err != nil {
 		return domain.User{}, err
 	}
 
 	if has {
-		return *userLogin, nil
+		return *inputUser, nil
 	} else {
 		return domain.User{}, errorcode.GetErr(errorcode.ErrUserWrongPassword)
 	}
