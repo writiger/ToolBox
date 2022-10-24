@@ -3,7 +3,7 @@ package service
 import (
 	"server/app/dao"
 	"server/app/domain"
-	errorcode "server/error_code"
+	"server/error_code"
 	"strconv"
 )
 
