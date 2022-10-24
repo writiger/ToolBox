@@ -27,11 +27,11 @@ func InitRedisClient() *redis.Client {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Println("链接Redis成功")
+	fmt.Println("Redis连接成功")
 	return redisDb
 }
 
-// 初始化数据库
+// InitSqlDB 初始化数据库
 func InitSqlDB() *xorm.Engine {
 	c := u.GetConf()
 	var err error
@@ -39,6 +39,7 @@ func InitSqlDB() *xorm.Engine {
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
+		// 测试redis连接
 		err2 := engine.Ping()
 		if err2 != nil {
 			fmt.Println(err2.Error())
@@ -46,6 +47,8 @@ func InitSqlDB() *xorm.Engine {
 			print("数据库连接成功")
 		}
 	}
+	// 如果表不存在则创建
+	InitTable()
 	return engine
 }
 
@@ -53,6 +56,11 @@ func InitTable() {
 	// 创建用户表
 	err := engine.Sync(new(User))
 	if err != nil {
+		fmt.Println(err.Error())
+	}
+	// 创建备忘录表
+	err2 := engine.Sync(new(Memo))
+	if err2 != nil {
 		fmt.Println(err.Error())
 	}
 }
