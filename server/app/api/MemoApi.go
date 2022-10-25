@@ -96,6 +96,7 @@ func MemoUpdate(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, response.ErrParam)
 		return
 	}
+	// 4. 响应请求
 	err2 := service.MemoPut(inputMemo)
 	if err2 != nil {
 		ctx.JSON(http.StatusOK, response.Err.WithMsg(err2.Error()))
