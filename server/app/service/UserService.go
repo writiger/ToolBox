@@ -1,10 +1,9 @@
 package service
 
 import (
-	"fmt"
 	"server/app/dao"
 	"server/app/domain"
-	errorcode "server/error_code"
+	"server/error_code"
 	"server/verification"
 )
 
@@ -15,7 +14,6 @@ func UserEmailVerifyService(account string) (int, error) {
 	// 1. 邮箱已存在 返回错误码
 	has, err1 := dao.UserIsExist(inputUser)
 	if err1 != nil {
-		fmt.Println()
 		return 500, err1
 	}
 	if has {
