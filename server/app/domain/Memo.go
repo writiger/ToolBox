@@ -9,11 +9,11 @@ const (
 )
 
 type Memo struct {
-	Id      int64
-	Info    string
-	Owner   int64
-	Status  int
-	EndTime int64
+	Id      int64     `form:"id"`
+	Info    string    `form:"info"`
+	Owner   int64     `form:"owner"`
+	Status  int       `form:"status"`
+	EndTime int64     `form:"end_time"`
 	Created time.Time `xorm:"created"`
 	Updated time.Time `xorm:"updated"`
 }

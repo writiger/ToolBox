@@ -80,3 +80,26 @@ func MemoDelete(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, response.OK)
 }
+
+func MemoUpdate(ctx *gin.Context) {
+	// 1. 读取参数
+	ownerAny, _ := ctx.Get("userId")
+	ownerString := fmt.Sprintf("%v", ownerAny)
+	owner, _ := strconv.ParseInt(ownerString, 10, 64)
+	// 2. owner绑定
+	inputMemo := domain.Memo{
+		Owner: owner,
+	}
+	// 3. 补充参数
+	err := ctx.Bind(&inputMemo)
+	if err != nil {
+		ctx.JSON(http.StatusOK, response.ErrParam)
+		return
+	}
+	err2 := service.MemoPut(inputMemo)
+	if err2 != nil {
+		ctx.JSON(http.StatusOK, response.Err.WithMsg(err2.Error()))
+		return
+	}
+	ctx.JSON(http.StatusOK, response.OK)
+}

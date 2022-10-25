@@ -18,12 +18,17 @@ func MemoQueryByOwnerService(owner string) ([]domain.Memo, error) {
 	return memos, err2
 }
 
-func MemoAdd(memoInput domain.Memo) error {
-	err := dao.MemoInsert(memoInput)
+func MemoAdd(inputMemo domain.Memo) error {
+	err := dao.MemoInsert(inputMemo)
 	return err
 }
 
-func MemoDelete(memoInput domain.Memo) error {
-	err := dao.MemoDelete(memoInput)
+func MemoDelete(inputMemo domain.Memo) error {
+	err := dao.MemoDelete(inputMemo)
+	return err
+}
+
+func MemoPut(inputMemo domain.Memo) error {
+	err := dao.MemoUpdate(inputMemo)
 	return err
 }
