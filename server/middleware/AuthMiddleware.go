@@ -10,9 +10,9 @@ import (
 	"strings"
 )
 
+// AuthMiddleWare 验证并将userId写入ctx
 func AuthMiddleWare() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
 		// 获取authorization header
 		tokenString := ctx.GetHeader("Authorization")
 		// 验证token格式
