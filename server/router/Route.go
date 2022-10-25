@@ -34,4 +34,6 @@ func collectMemoRoute(r *gin.Engine) {
 	r.GET(memoApiURI, middleware.AuthMiddleWare(), api.MemoQueryByOwner)
 	// 新增memo
 	r.POST(memoApiURI, middleware.AuthMiddleWare(), api.MemoUpload)
+	// 删除memo
+	r.DELETE(memoApiURI+"/:memoId", middleware.AuthMiddleWare(), api.MemoDelete)
 }

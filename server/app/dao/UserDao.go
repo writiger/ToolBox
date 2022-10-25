@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-func UserInsert(user domain.User) error {
-	has, _ := UserIsExist(user)
+func UserInsert(inputUser domain.User) error {
+	has, _ := UserIsExist(inputUser)
 	if has {
 		return errorcode.GetErr(errorcode.ErrUserAlreadyExist)
 	}
-	_, err := engine.Insert(&user)
+	_, err := engine.Insert(&inputUser)
 	return err
 }
 

@@ -50,6 +50,33 @@ func MemoUpload(ctx *gin.Context) {
 	// 4. 响应请求
 	if err3 != nil {
 		ctx.JSON(http.StatusOK, response.Err.WithMsg(err3.Error()))
+		return
+	}
+	ctx.JSON(http.StatusOK, response.OK)
+}
+
+func MemoDelete(ctx *gin.Context) {
+	// 1. 读取参数
+	ownerAny, _ := ctx.Get("userId")
+	ownerString := fmt.Sprintf("%v", ownerAny)
+	owner, _ := strconv.ParseInt(ownerString, 10, 64)
+	memoIdString := ctx.Param("memoId")
+	memoId, err := strconv.ParseInt(memoIdString, 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusOK, response.ErrParam)
+		return
+	}
+	// 2. 生成Memo
+	memoInput := domain.Memo{
+		Owner: owner,
+		Id:    memoId,
+	}
+	// 3. 调用服务
+	err2 := service.MemoDelete(memoInput)
+	// 4. 返回请求
+	if err2 != nil {
+		ctx.JSON(http.StatusOK, response.Err.WithMsg(err2.Error()))
+		return
 	}
 	ctx.JSON(http.StatusOK, response.OK)
 }

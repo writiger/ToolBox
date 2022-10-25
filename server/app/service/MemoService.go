@@ -22,3 +22,8 @@ func MemoAdd(memoInput domain.Memo) error {
 	err := dao.MemoInsert(memoInput)
 	return err
 }
+
+func MemoDelete(memoInput domain.Memo) error {
+	err := dao.MemoDelete(memoInput)
+	return err
+}
