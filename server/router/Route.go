@@ -2,6 +2,7 @@ package route
 
 import (
 	"server/app/api"
+	"server/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -30,6 +31,7 @@ func collectMemoRoute(r *gin.Engine) {
 	memoApiURI := "/api/memo"
 
 	// 根据owner查询memo
-	r.GET(memoApiURI+"/:owner", api.MemoQueryByOwner)
-	// 新增
+	r.GET(memoApiURI, middleware.AuthMiddleWare(), api.MemoQueryByOwner)
+	// 新增memo
+	r.POST(memoApiURI, middleware.AuthMiddleWare(), api.MemoUpload)
 }
