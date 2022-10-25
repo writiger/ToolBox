@@ -1,7 +1,6 @@
 package verification
 
 import (
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"server/app/domain"
 	"server/utils"
@@ -13,17 +12,18 @@ var jwtKey = []byte(utils.GetConf().JWTKey)
 type Claims struct {
 	UserAccount string
 	jwt.StandardClaims
+	Id int64
 }
 
 func ReleaseToken(user domain.User) (string, error) {
-	fmt.Println("这是密钥", jwtKey)
 	expirationTime := time.Now().Add(time.Duration(utils.GetConf().ContinuousTime) * time.Hour)
 	claims := &Claims{
 		UserAccount: user.Account,
+		Id:          user.Id,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 			IssuedAt:  time.Now().Unix(),
-			Issuer:    "paperIndexSystem",
+			Issuer:    "ToolBoxW",
 			Subject:   "User Token",
 		},
 	}
