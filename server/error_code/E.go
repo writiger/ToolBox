@@ -27,12 +27,13 @@ func GetErr(code int) error {
 var ErrMap map[int]string
 
 const (
-	ErrParam             = 10001
-	ErrUserService       = 30100
-	ErrUserWrongPassword = 30101
-	ErrUserNil           = 30102
-	ErrUserAlreadyExist  = 30103
-	ErrUserEmailFail     = 30104
+	ErrParam                = 10001
+	ErrUserService          = 30100
+	ErrUserWrongPassword    = 30101
+	ErrUserNil              = 30102
+	ErrUserAlreadyExist     = 30103
+	ErrUserEmailFail        = 30104
+	ErrUserPermissionDenied = 30105
 )
 
 func init() {
