@@ -28,9 +28,10 @@ var (
 
 	//用户模块错误
 
-	ErrUserService       = response(errorcode.ErrUserService, "用户服务异常")
-	ErrUserWrongPassword = response(errorcode.ErrUserWrongPassword, "用户密码错误")
-	ErrUserNil           = response(errorcode.ErrUserNil, "用户不存在")
-	ErrUserAlreadyExist  = response(errorcode.ErrUserAlreadyExist, "用户已存在")
-	ErrUserEmailFail     = response(errorcode.ErrUserEmailFail, "验证码失效或错误")
+	ErrUserService          = response(errorcode.ErrUserService, "用户服务异常")
+	ErrUserWrongPassword    = response(errorcode.ErrUserWrongPassword, "用户密码错误")
+	ErrUserNil              = response(errorcode.ErrUserNil, "用户不存在")
+	ErrUserAlreadyExist     = response(errorcode.ErrUserAlreadyExist, "用户已存在")
+	ErrUserEmailFail        = response(errorcode.ErrUserEmailFail, "验证码失效或错误")
+	ErrUserPermissionDenied = response(errorcode.ErrUserPermissionDenied, "未通过登录授权")
 )
