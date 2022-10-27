@@ -15,7 +15,7 @@ func UserInsert(inputUser domain.User) error {
 	return err
 }
 
-func UserEmailRedisSave(inputUser domain.User, code int) error {
+func UserEmailRedisSet(inputUser domain.User, code int) error {
 	err := rc.Set(inputUser.Account, code, time.Duration(c.RegisterCodeFailureTime)*time.Second).Err()
 	return err
 }

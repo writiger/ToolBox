@@ -21,7 +21,7 @@ func UserEmailVerifyService(account string) error {
 	}
 	// 2. 邮箱不存在 生成验证码 保存redis
 	code := verification.GenerateRegisterCode()
-	err2 := dao.UserEmailRedisSave(inputUser, code)
+	err2 := dao.UserEmailRedisSet(inputUser, code)
 	if err2 != nil {
 		return err2
 	}
