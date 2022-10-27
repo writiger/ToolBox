@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"server/app/domain"
 	"server/app/service"
+	"server/error_code"
 	"server/response"
 	"server/utils"
 
@@ -42,14 +43,14 @@ func UserEmailVerify(ctx *gin.Context) {
 	// 1. 读取POST参数
 	account := ctx.PostForm("account")
 	// 2. 验证邮箱是否存在
-	res, err := service.UserEmailVerifyService(account)
-	// 3. 判断结果
-	switch res {
-	case 30105:
+	err := service.UserEmailVerifyService(account)
+	//// 3. 判断结果
+	switch err {
+	case nil:
+		ctx.JSON(http.StatusOK, response.OK)
+	case errorcode.GetErr(errorcode.ErrUserAlreadyExist):
 		ctx.JSON(http.StatusOK, response.ErrUserAlreadyExist)
-	case 200:
-		ctx.JSON(http.StatusOK, nil)
-	case 500:
+	default:
 		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
 	}
 }

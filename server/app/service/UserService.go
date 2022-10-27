@@ -7,34 +7,30 @@ import (
 	"server/verification"
 )
 
-func UserEmailVerifyService(account string) (int, error) {
+func UserEmailVerifyService(account string) error {
 	inputUser := domain.User{
 		Account: account,
 	}
 	// 1. 邮箱已存在 返回错误码
 	has, err1 := dao.UserIsExist(inputUser)
 	if err1 != nil {
-		return 500, err1
+		return err1
 	}
 	if has {
-		return 30105, nil
+		return errorcode.GetErr(errorcode.ErrUserAlreadyExist)
 	}
 	// 2. 邮箱不存在 生成验证码 保存redis
 	code := verification.GenerateRegisterCode()
 	err2 := dao.UserEmailRedisSave(inputUser, code)
 	if err2 != nil {
-		return 500, err2
+		return err2
 	}
 	// 3. 发送邮件 并返回
 	err3 := verification.SendMail(account, code)
-	if err3 != nil {
-		return 500, err3
-	}
-	return 200, nil
+	return err3
 }
 
 func UserEmailVerifyCodeService(account string, code string) bool {
-	//codeExist := dao.UserEmailCodeGet(account)
 	codeExist := dao.UserEmailCodeGet(domain.User{
 		Account: account,
 	})
