@@ -6,6 +6,7 @@ import (
 	"crypto/x509"
 )
 
+// MakeKeys 生成基于X509加密的私钥和公钥
 func MakeKeys() (X509PrivateKey []byte, X509PublicKey []byte) {
 	privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
@@ -19,10 +20,13 @@ func MakeKeys() (X509PrivateKey []byte, X509PublicKey []byte) {
 	return
 }
 
+// Encrypt
+// @Param plain string 需要加密的信息
+// @Param publicByte []byte 公钥
 func Encrypt(plain string, publicByte []byte) ([]byte, error) {
 	publicKeyInterface, err := x509.ParsePKIXPublicKey(publicByte)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	//类型断言
 	publicKey := publicKeyInterface.(*rsa.PublicKey)
@@ -33,13 +37,15 @@ func Encrypt(plain string, publicByte []byte) ([]byte, error) {
 	return encryptedBytes, nil
 }
 
-func Decrypt(cipher []byte, privateByte []byte) []byte {
+// Decrypt
+// @param
+func Decrypt(cipher []byte, privateByte []byte) ([]byte, error) {
 	//X509解码
 	privateKey, err := x509.ParsePKCS1PrivateKey(privateByte)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	//对密文进行解密
 	plainText, _ := rsa.DecryptPKCS1v15(rand.Reader, privateKey, cipher)
-	return plainText
+	return plainText, nil
 }
