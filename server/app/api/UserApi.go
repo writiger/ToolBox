@@ -30,12 +30,12 @@ func UserRegister(ctx *gin.Context) {
 		Password: utils.MD5(password),
 	}
 	// 4. 提交服务
-	err := service.UserAddService(newUser)
+	privateKey, err := service.UserAddService(newUser)
 	// 5. 响应请求
 	if err != nil {
 		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
 	} else {
-		ctx.JSON(http.StatusOK, response.OK.WithMsg("注册成功"))
+		ctx.JSON(http.StatusOK, response.OK.WithData(privateKey))
 	}
 }
 

@@ -37,9 +37,14 @@ func UserEmailVerifyCodeService(account string, code string) bool {
 	return code == codeExist
 }
 
-func UserAddService(inputUser domain.User) error {
+func UserAddService(inputUser domain.User) (string, error) {
 	err := dao.UserInsert(inputUser)
-	return err
+	if err != nil {
+		return "", err
+	}
+	// 获取私人密钥
+	privateKey := dao.CipherSet(inputUser)
+	return privateKey, err
 }
 
 // UserLoginService
