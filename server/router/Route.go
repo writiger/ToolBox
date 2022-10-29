@@ -39,3 +39,10 @@ func collectMemoRoute(r *gin.Engine) {
 	// 更新memo
 	r.PUT(memoApiURI, middleware.AuthMiddleWare(), api.MemoUpdate)
 }
+
+func collectCipherRoute(r *gin.Engine) {
+	cipherApiURI := "/api/cipher"
+
+	// 新增cipher
+	r.POST(cipherApiURI, middleware.AuthMiddleWare(), api.CipherUpload)
+}
