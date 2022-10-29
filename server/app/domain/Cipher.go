@@ -1,6 +1,6 @@
 package domain
 
 type Cipher struct {
-	Owner int64
+	Owner string
 	Info  string
 }
