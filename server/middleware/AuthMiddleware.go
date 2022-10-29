@@ -51,6 +51,7 @@ func AuthMiddleWare() gin.HandlerFunc {
 
 		// 验证通过  写入User
 		ctx.Set("userId", claims.Id)
+		ctx.Set("userAccount", claims.UserAccount)
 		ctx.Next()
 	}
 }
