@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"fmt"
 	"server/app/domain"
 	"server/rsa"
 )
@@ -11,4 +12,15 @@ func CipherRedisSet(inputUser domain.User) string {
 	rc.Set("pubKey:"+inputUser.Account, publicKey, -1)
 	// 返回私人私钥
 	return privateKey
+}
+
+func CipherRedisGet(account string) (string, error) {
+	result, err := rc.Get("pubKey:" + account).Result()
+	return result, err
+}
+
+func CipherInsert(inputCipher domain.Cipher) error {
+	fmt.Println(inputCipher)
+	_, err := engine.Insert(&inputCipher)
+	return err
 }
