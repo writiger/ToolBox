@@ -1,0 +1,14 @@
+package dao
+
+import (
+	"server/app/domain"
+	"server/rsa"
+)
+
+func CipherRedisSet(inputUser domain.User) string {
+	privateKey, publicKey := rsa.MakeKeys()
+	// 保存私人公钥
+	rc.Set("pubKey:"+inputUser.Account, publicKey, -1)
+	// 返回私人私钥
+	return privateKey
+}
