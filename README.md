@@ -12,6 +12,7 @@
 * 总是突然有什么想玩的游戏过两天就忘
 * 记录一些专业的词意
 * 制作时间表 打卡 
+* （想到了再补充）
 
 
 
@@ -33,14 +34,16 @@
 
 # 接口开发进度
 
-| 接口路径        | 请求方式 | 功能                 |
-| --------------- | -------- | -------------------- |
-| /api/user/mail  | POST     | 请求发送邮箱验证码   |
-| /api/user       | POST     | 注册用户             |
-| /api/user/login | POST     | 登录                 |
-| /api/memo       | GET      | 根据拥有者查询备忘录 |
-| /api/memo       | DELETE   | 删除备忘录           |
-| /api/memo       | POST     | 上传备忘录           |
-| /api/memo       | PUT      | 更新备忘录           |
-| /api/cipher     | POST     | 保存密码             |
+| 接口路径                | 请求方式 | 功能                 |
+| ----------------------- | -------- | -------------------- |
+| /api/user/mail          | POST     | 请求发送邮箱验证码   |
+| /api/user               | POST     | 注册用户             |
+| /api/user/login         | POST     | 登录                 |
+| /api/memo               | GET      | 根据拥有者查询备忘录 |
+| /api/memo               | DELETE   | 删除备忘录           |
+| /api/memo               | POST     | 上传备忘录           |
+| /api/memo               | PUT      | 更新备忘录           |
+| /api/cipher             | POST     | 保存密码             |
+| /api/cipher             | GET      | 获取密码             |
+| /api/cipher/translation | POST     | 翻译密码             |
 
