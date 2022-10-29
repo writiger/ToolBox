@@ -6,7 +6,7 @@ import (
 
 func MemoFindByOwner(inputMemo domain.Memo) ([]domain.Memo, error) {
 	memos := make([]domain.Memo, 0)
-	err := engine.Where("owner = '?", inputMemo.Owner).Find(&memos)
+	err := engine.Where("owner = ?", inputMemo.Owner).Find(&memos)
 	return memos, err
 }
 

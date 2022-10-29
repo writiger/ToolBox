@@ -43,7 +43,7 @@ func UserAddService(inputUser domain.User) (string, error) {
 		return "", err
 	}
 	// 获取私人密钥
-	privateKey := dao.CipherSet(inputUser)
+	privateKey := dao.CipherRedisSet(inputUser)
 	return privateKey, err
 }
 
