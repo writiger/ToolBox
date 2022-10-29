@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"server/app/domain"
@@ -13,7 +12,8 @@ import (
 func MemoQueryByOwner(ctx *gin.Context) {
 	// 1. 读取用户id
 	ownerAny, _ := ctx.Get("userId")
-	owner := fmt.Sprintf("%v", ownerAny)
+	// 断言类型
+	owner := ownerAny.(int64)
 	// 2. 调用service
 	res, err := service.MemoQueryByOwnerService(owner)
 	// 3. 响应请求
@@ -27,9 +27,9 @@ func MemoQueryByOwner(ctx *gin.Context) {
 func MemoUpload(ctx *gin.Context) {
 	// 1. 读取参数
 	ownerAny, _ := ctx.Get("userId")
-	ownerString := fmt.Sprintf("%v", ownerAny)
-	owner, _ := strconv.ParseInt(ownerString, 10, 64)
 	info := ctx.PostForm("info")
+	// 断言类型
+	owner := ownerAny.(int64)
 	status, err := strconv.Atoi(ctx.PostForm("status"))
 	if err != nil {
 		ctx.JSON(http.StatusOK, response.ErrParam)
@@ -58,7 +58,8 @@ func MemoUpload(ctx *gin.Context) {
 func MemoDelete(ctx *gin.Context) {
 	// 1. 读取参数
 	ownerAny, _ := ctx.Get("userId")
-	ownerString := fmt.Sprintf("%v", ownerAny)
+	// 断言类型
+	ownerString := strconv.FormatInt(ownerAny.(int64), 10)
 	owner, _ := strconv.ParseInt(ownerString, 10, 64)
 	memoIdString := ctx.Param("memoId")
 	memoId, err := strconv.ParseInt(memoIdString, 10, 64)
@@ -84,8 +85,8 @@ func MemoDelete(ctx *gin.Context) {
 func MemoUpdate(ctx *gin.Context) {
 	// 1. 读取参数
 	ownerAny, _ := ctx.Get("userId")
-	ownerString := fmt.Sprintf("%v", ownerAny)
-	owner, _ := strconv.ParseInt(ownerString, 10, 64)
+	// 断言类型
+	owner, _ := ownerAny.(int64)
 	// 2. owner绑定
 	inputMemo := domain.Memo{
 		Owner: owner,
