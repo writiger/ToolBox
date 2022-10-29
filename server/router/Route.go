@@ -11,6 +11,7 @@ func CollectRoute(r *gin.Engine) {
 	// 按照实体类注册路由 便于管理
 	collectUserRoute(r)
 	collectMemoRoute(r)
+	collectCipherRoute(r)
 }
 
 func collectUserRoute(r *gin.Engine) {
