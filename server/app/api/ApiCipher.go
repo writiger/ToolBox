@@ -9,7 +9,7 @@ import (
 )
 
 func CipherUpload(ctx *gin.Context) {
-	// 1. 读取用户id
+	// 1. 读取用户account
 	ownerAny, _ := ctx.Get("userAccount")
 	// 断言类型
 	owner := ownerAny.(string)
@@ -30,4 +30,22 @@ func CipherUpload(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, response.OK)
+}
+
+func CipherQueryByOwner(ctx *gin.Context) {
+	// 1. 读取用户account
+	ownerAny, _ := ctx.Get("userAccount")
+	// 断言类型
+	owner := ownerAny.(string)
+	// 2. 调用服务
+	ciphers, err := service.CipherQueryByOwnerService(owner)
+	// 3. 响应请求
+	if err != nil {
+		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
+	}
+	ctx.JSON(http.StatusOK, response.OK.WithData(ciphers))
+}
+
+func CipherTranslate(ctx *gin.Context) {
+
 }

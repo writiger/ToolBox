@@ -16,3 +16,8 @@ func CipherAdd(inputCipher domain.Cipher) error {
 	err = dao.CipherInsert(inputCipher)
 	return err
 }
+
+func CipherQueryByOwnerService(owner string) ([]domain.Cipher, error) {
+	ciphers, err := dao.CipherFindByOwner(owner)
+	return ciphers, err
+}

@@ -46,4 +46,8 @@ func collectCipherRoute(r *gin.Engine) {
 
 	// 新增cipher
 	r.POST(cipherApiURI, middleware.AuthMiddleWare(), api.CipherUpload)
+	// 根据owner查询
+	r.GET(cipherApiURI, middleware.AuthMiddleWare(), api.CipherQueryByOwner)
+	// 翻译密码
+	r.POST(cipherApiURI+"/translation", middleware.AuthMiddleWare(), api.CipherTranslate)
 }

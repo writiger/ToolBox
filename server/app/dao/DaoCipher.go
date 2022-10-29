@@ -1,7 +1,6 @@
 package dao
 
 import (
-	"fmt"
 	"server/app/domain"
 	"server/rsa"
 )
@@ -20,7 +19,12 @@ func CipherRedisGet(account string) (string, error) {
 }
 
 func CipherInsert(inputCipher domain.Cipher) error {
-	fmt.Println(inputCipher)
 	_, err := engine.Insert(&inputCipher)
 	return err
+}
+
+func CipherFindByOwner(owner string) ([]domain.Cipher, error) {
+	ciphers := make([]domain.Cipher, 0)
+	err := engine.Where("owner = ?", owner).Find(&ciphers)
+	return ciphers, err
 }

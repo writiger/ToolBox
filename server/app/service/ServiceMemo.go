@@ -6,10 +6,10 @@ import (
 )
 
 func MemoQueryByOwnerService(owner int64) ([]domain.Memo, error) {
-	memos, err2 := dao.MemoFindByOwner(domain.Memo{
+	memos, err := dao.MemoFindByOwner(domain.Memo{
 		Owner: owner,
 	})
-	return memos, err2
+	return memos, err
 }
 
 func MemoAdd(inputMemo domain.Memo) error {
