@@ -23,15 +23,16 @@ var (
 
 	// 服务级错误码
 
-	ErrParam     = response(10001, "参数有误")
-	ErrSignParam = response(10002, "签名参数有误")
+	ErrParam = responseErr(errorcode.ErrParam)
 
 	//用户模块错误
 
-	ErrUserService          = response(errorcode.ErrUserService, "用户服务异常")
-	ErrUserWrongPassword    = response(errorcode.ErrUserWrongPassword, "用户密码错误")
-	ErrUserNil              = response(errorcode.ErrUserNil, "用户不存在")
-	ErrUserAlreadyExist     = response(errorcode.ErrUserAlreadyExist, "用户已存在")
-	ErrUserEmailFail        = response(errorcode.ErrUserEmailFail, "验证码失效或错误")
-	ErrUserPermissionDenied = response(errorcode.ErrUserPermissionDenied, "未通过登录授权")
+	ErrUserService          = responseErr(errorcode.ErrUserService)
+	ErrUserWrongPassword    = responseErr(errorcode.ErrUserWrongPassword)
+	ErrUserNil              = responseErr(errorcode.ErrUserNil)
+	ErrUserAlreadyExist     = responseErr(errorcode.ErrUserAlreadyExist)
+	ErrUserEmailFail        = responseErr(errorcode.ErrUserEmailFail)
+	ErrUserPermissionDenied = responseErr(errorcode.ErrUserPermissionDenied)
+	ErrCipherNil            = responseErr(errorcode.ErrCipherNil)
+	ErrRsaDecrypt           = responseErr(errorcode.ErrRsaDecrypt)
 )

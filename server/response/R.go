@@ -1,6 +1,9 @@
 package response
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"server/error_code"
+)
 
 // R 统一返回格式
 type R struct {
@@ -44,6 +47,14 @@ func response(code int, msg string) *R {
 	return &R{
 		Code: code,
 		Msg:  msg,
+		Data: nil,
+	}
+}
+
+func responseErr(code int) *R {
+	return &R{
+		Code: code,
+		Msg:  errorcode.GetErr(code).Error(),
 		Data: nil,
 	}
 }

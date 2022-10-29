@@ -34,6 +34,8 @@ const (
 	ErrUserAlreadyExist     = 30103
 	ErrUserEmailFail        = 30104
 	ErrUserPermissionDenied = 30105
+	ErrCipherNil            = 30301
+	ErrRsaDecrypt           = 30401
 )
 
 func init() {
@@ -44,4 +46,6 @@ func init() {
 	ErrMap[30102] = "用户不存在"
 	ErrMap[30103] = "用户已存在"
 	ErrMap[30104] = "验证码失效或错误"
+	ErrMap[30301] = "密码不存在"
+	ErrMap[30401] = "私钥错误"
 }

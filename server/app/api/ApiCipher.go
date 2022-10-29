@@ -5,7 +5,9 @@ import (
 	"net/http"
 	"server/app/domain"
 	"server/app/service"
+	"server/error_code"
 	"server/response"
+	"strconv"
 )
 
 func CipherUpload(ctx *gin.Context) {
@@ -25,7 +27,10 @@ func CipherUpload(ctx *gin.Context) {
 	// 4. 调用服务
 	err := service.CipherAdd(inputCipher)
 	// 5. 响应请求
-	if err != nil {
+	if err == errorcode.GetErr(errorcode.ErrRsaDecrypt) {
+		ctx.JSON(http.StatusOK, response.ErrRsaDecrypt)
+		return
+	} else if err != nil {
 		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
 		return
 	}
@@ -47,5 +52,18 @@ func CipherQueryByOwner(ctx *gin.Context) {
 }
 
 func CipherTranslate(ctx *gin.Context) {
+	// 1. 读取参数
+	cipherIdString := ctx.PostForm("cipher_id")
+	privateKey := ctx.PostForm("private_key")
+	cipherId, err := strconv.ParseInt(cipherIdString, 10, 64)
+	// 2. 调用服务
+
+	plain, err := service.CipherTranslate(cipherId, privateKey)
+	// 3. 相应请求
+	if err != nil {
+		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
+		return
+	}
+	ctx.JSON(http.StatusOK, response.OK.WithData(plain))
 
 }

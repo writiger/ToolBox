@@ -21,3 +21,14 @@ func CipherQueryByOwnerService(owner string) ([]domain.Cipher, error) {
 	ciphers, err := dao.CipherFindByOwner(owner)
 	return ciphers, err
 }
+
+func CipherTranslate(cipherId int64, privateKey string) (string, error) {
+	// 查询密码
+	cipher, err := dao.CipherFindById(cipherId)
+	if err != nil {
+		return "", err
+	}
+	// 翻译密码
+	plain, err := rsa.Decrypt(cipher.Info, privateKey)
+	return plain, err
+}

@@ -5,6 +5,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/base64"
+	errorcode "server/error_code"
 )
 
 // MakeKeys 生成基于X509加密Base64编码的私钥和公钥的字符串
@@ -55,7 +56,7 @@ func Decrypt(cipher string, privateK string) (string, error) {
 	//X509解码
 	privateKey, err := x509.ParsePKCS1PrivateKey(keyGet)
 	if err != nil {
-		return "", err
+		return "", errorcode.GetErr(errorcode.ErrRsaDecrypt)
 	}
 	//对密文进行解密
 	plainText, _ := rsa.DecryptPKCS1v15(rand.Reader, privateKey, cipherByte)
