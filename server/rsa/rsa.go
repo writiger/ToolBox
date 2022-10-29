@@ -4,27 +4,32 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
+	"encoding/base64"
 )
 
 // MakeKeys 生成基于X509加密的私钥和公钥
-func MakeKeys() (X509PrivateKey []byte, X509PublicKey []byte) {
+func MakeKeys() (X509PrivateKey string, X509PublicKey string) {
 	privateKey, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)
 	}
 	publicKey := privateKey.PublicKey
 	//通过x509标准将得到的ras私钥序列化为ASN.1 的 DER编码字符串
-	X509PrivateKey = x509.MarshalPKCS1PrivateKey(privateKey)
+	X509PrivateKey = base64.StdEncoding.EncodeToString(x509.MarshalPKCS1PrivateKey(privateKey))
 	//X509对公钥编码
-	X509PublicKey, err = x509.MarshalPKIXPublicKey(&publicKey)
+	X509PublicKeyByte, _ := x509.MarshalPKIXPublicKey(&publicKey)
+	X509PublicKey = base64.StdEncoding.EncodeToString(X509PublicKeyByte)
 	return
 }
 
 // Encrypt
 // @Param plain string 需要加密的信息
 // @Param publicByte []byte 公钥
-func Encrypt(plain string, publicByte []byte) ([]byte, error) {
-	publicKeyInterface, err := x509.ParsePKIXPublicKey(publicByte)
+func Encrypt(plain string, publicK string) ([]byte, error) {
+	// Base64解码
+	keyGet, _ := base64.StdEncoding.DecodeString(publicK)
+	// X509解码
+	publicKeyInterface, err := x509.ParsePKIXPublicKey(keyGet)
 	if err != nil {
 		return nil, err
 	}
@@ -39,9 +44,11 @@ func Encrypt(plain string, publicByte []byte) ([]byte, error) {
 
 // Decrypt
 // @param
-func Decrypt(cipher []byte, privateByte []byte) ([]byte, error) {
+func Decrypt(cipher []byte, privateK string) ([]byte, error) {
+	// Base64解码
+	keyGet, _ := base64.StdEncoding.DecodeString(privateK)
 	//X509解码
-	privateKey, err := x509.ParsePKCS1PrivateKey(privateByte)
+	privateKey, err := x509.ParsePKCS1PrivateKey(keyGet)
 	if err != nil {
 		return nil, err
 	}
