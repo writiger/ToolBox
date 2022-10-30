@@ -60,4 +60,6 @@ func collectClockRoute(r *gin.Engine) {
 	r.POST(clockApiURI, middleware.AuthMiddleWare(), api.ClockUpload)
 	// 查询clock
 	r.GET(clockApiURI, middleware.AuthMiddleWare(), api.ClockQueryByOwner)
+	// 打卡
+	r.PUT(clockApiURI+"/:clockId", middleware.AuthMiddleWare(), api.ClockIn)
 }
