@@ -36,6 +36,7 @@ const (
 	ErrUserPermissionDenied = 30105
 	ErrCipherNil            = 30301
 	ErrRsaDecrypt           = 30401
+	ErrClockNil             = 30501
 )
 
 func init() {
@@ -48,4 +49,5 @@ func init() {
 	ErrMap[30104] = "验证码失效或错误"
 	ErrMap[30301] = "密码不存在"
 	ErrMap[30401] = "私钥错误"
+	ErrMap[30501] = "打卡信息不存在"
 }
