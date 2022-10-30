@@ -29,6 +29,7 @@ type Clock struct {
 	// 1 -> 进行中
 	// 2 -> 已完成
 	Status  int
+	Name    string
 	Created time.Time `xorm:"created"`
 	Updated time.Time `xorm:"updated"`
 }

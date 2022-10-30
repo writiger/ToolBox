@@ -12,6 +12,7 @@ func CollectRoute(r *gin.Engine) {
 	collectUserRoute(r)
 	collectMemoRoute(r)
 	collectCipherRoute(r)
+	collectClockRoute(r)
 }
 
 func collectUserRoute(r *gin.Engine) {
@@ -50,4 +51,11 @@ func collectCipherRoute(r *gin.Engine) {
 	r.GET(cipherApiURI, middleware.AuthMiddleWare(), api.CipherQueryByOwner)
 	// 翻译密码
 	r.POST(cipherApiURI+"/translation", middleware.AuthMiddleWare(), api.CipherTranslate)
+}
+
+func collectClockRoute(r *gin.Engine) {
+	clockApiURI := "/api/clock"
+
+	// 新增clock
+	r.POST(clockApiURI, middleware.AuthMiddleWare(), api.ClockUpload)
 }
