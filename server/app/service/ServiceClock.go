@@ -11,6 +11,6 @@ func ClockUpload(inputClock domain.Clock) error {
 }
 
 func ClockQueryByOwner(owner string) ([]domain.Clock, error) {
-	res, err := dao.ClockQueryByOwner(domain.Clock{Owner: owner})
+	res, err := dao.ClockFindByOwner(domain.Clock{Owner: owner})
 	return res, err
 }
