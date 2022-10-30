@@ -15,6 +15,7 @@ func ClockUpload(ctx *gin.Context) {
 	kind, _ := strconv.Atoi(ctx.PostForm("kind"))
 	start, _ := strconv.Atoi(ctx.PostForm("start"))
 	achieveTarget, _ := strconv.Atoi(ctx.PostForm("achieve_target"))
+	interval := ctx.PostForm("interval")
 	name := ctx.PostForm("name")
 	// 2. 生成Clock
 	inputClock := domain.Clock{
@@ -24,7 +25,7 @@ func ClockUpload(ctx *gin.Context) {
 		AchieveTarget: achieveTarget,
 		Name:          name,
 		Status:        domain.StatusIng,
-		Interval:      -1,
+		Interval:      interval,
 	}
 	// 3. 调用服务
 	err := service.ClockUpload(inputClock)
@@ -34,4 +35,17 @@ func ClockUpload(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, response.OK)
+}
+
+func ClockQueryByOwner(ctx *gin.Context) {
+	// 1. 获取参数
+	ownerAny, _ := ctx.Get("userAccount")
+	// 2. 调用服务
+	clocks, err := service.ClockQueryByOwner(ownerAny.(string))
+	// 3. 响应请求
+	if err != nil {
+		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
+		return
+	}
+	ctx.JSON(http.StatusOK, response.OK.WithData(clocks))
 }

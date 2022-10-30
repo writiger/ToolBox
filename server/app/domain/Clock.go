@@ -24,7 +24,7 @@ type Clock struct {
 	Start         int
 	AchieveTarget int
 	AchieveNow    int
-	Interval      int
+	Interval      string
 	// Status 打卡状态
 	// 1 -> 进行中
 	// 2 -> 已完成
