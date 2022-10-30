@@ -9,7 +9,7 @@ func ClockInsert(inputClock domain.Clock) error {
 	return err
 }
 
-func ClockQueryByOwner(inputClock domain.Clock) ([]domain.Clock, error) {
+func ClockFindByOwner(inputClock domain.Clock) ([]domain.Clock, error) {
 	clocks := make([]domain.Clock, 0)
 	err := engine.Where("owner = ?", inputClock.Owner).Find(&clocks)
 	return clocks, err
