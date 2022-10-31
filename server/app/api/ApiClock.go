@@ -64,3 +64,18 @@ func ClockIn(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, response.OK)
 }
+
+func ClockDelete(ctx *gin.Context) {
+	// 1. 获取参数
+	ownerAny, _ := ctx.Get("userAccount")
+	clockIdString := ctx.Param("clockId")
+	clock, _ := strconv.ParseInt(clockIdString, 10, 64)
+	// 2. 调用服务
+	err := service.ClockClockDelete(clock, ownerAny.(string))
+	// 3. 响应请求
+	if err != nil {
+		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
+		return
+	}
+	ctx.JSON(http.StatusOK, response.OK)
+}

@@ -30,3 +30,13 @@ func ClockGetAchieveNow(inputClock domain.Clock) (int, error) {
 	}
 	return ints[0], err
 }
+
+func ClockDelete(inputClock domain.Clock) error {
+	has, err := engine.Table("clock").
+		Where("id = ? and owner = ?", inputClock.Id, inputClock.Owner).Exist()
+	if !has {
+		return errorcode.GetErr(errorcode.ErrClockNil)
+	}
+	_, err = engine.Delete(inputClock)
+	return err
+}

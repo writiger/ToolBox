@@ -28,3 +28,12 @@ func ClockClockIn(id int64, owner string) error {
 	err = dao.ClockUpdate(inputClock)
 	return err
 }
+
+func ClockClockDelete(id int64, owner string) error {
+	inputClock := domain.Clock{
+		Id:    id,
+		Owner: owner,
+	}
+	err := dao.ClockDelete(inputClock)
+	return err
+}
