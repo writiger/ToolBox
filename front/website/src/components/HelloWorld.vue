@@ -1,14 +1,21 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <n-button>
+    <h2>{{test}}</h2>
+    <n-button v-on:click="up" tertiary circle type="error">
+      <template #icon>
+        <n-icon>
+          <Money16Regular />
+        </n-icon>
+      </template>
     </n-button>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { NSpace, NButton } from 'naive-ui'
+import { NSpace, NButton, NIcon } from 'naive-ui'
+import Money16Regular from '@vicons/fluent/Money16Regular'
 
 @Options({
   props: {
@@ -16,12 +23,19 @@ import { NSpace, NButton } from 'naive-ui'
   },
   components: {
     NSpace,
-    NButton
-  }
+    NButton,
+    NIcon,
+    Money16Regular
+  },
 })
-export default class HelloWorld extends Vue {
-  msg!: string
 
+export default class HelloWorld extends Vue {
+
+  test = 1
+  msg!: string
+  up() {
+    this.test++
+  }
 }
 </script>
 
