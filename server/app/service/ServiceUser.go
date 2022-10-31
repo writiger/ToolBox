@@ -7,7 +7,7 @@ import (
 	"server/verification"
 )
 
-func UserEmailVerifyService(account string) error {
+func UserEmailVerifySend(account string) error {
 	inputUser := domain.User{
 		Account: account,
 	}
@@ -30,14 +30,14 @@ func UserEmailVerifyService(account string) error {
 	return err3
 }
 
-func UserEmailVerifyCodeService(account string, code string) bool {
+func UserEmailVerifyCode(account string, code string) bool {
 	codeExist := dao.UserEmailCodeGet(domain.User{
 		Account: account,
 	})
 	return code == codeExist
 }
 
-func UserAddService(inputUser domain.User) (string, error) {
+func UserAdd(inputUser domain.User) (string, error) {
 	err := dao.UserInsert(inputUser)
 	if err != nil {
 		return "", err
@@ -47,9 +47,9 @@ func UserAddService(inputUser domain.User) (string, error) {
 	return privateKey, err
 }
 
-// UserLoginService
+// UserLogin
 // @return string "由查询到的用户生成token 返回空则登陆失败"
-func UserLoginService(inputUser domain.User) (string, error) {
+func UserLogin(inputUser domain.User) (string, error) {
 	has, err := dao.UserIsExist(inputUser)
 	if err != nil {
 		return "", err

@@ -17,7 +17,7 @@ func UserRegister(ctx *gin.Context) {
 	password := ctx.PostForm("password")
 	code := ctx.PostForm("code")
 	// 2. redis中验证验证码是否符合邮箱
-	conform := service.UserEmailVerifyCodeService(account, code)
+	conform := service.UserEmailVerifyCode(account, code)
 	if !conform {
 		ctx.JSON(http.StatusOK, response.ErrUserEmailFail)
 		return
@@ -30,7 +30,7 @@ func UserRegister(ctx *gin.Context) {
 		Password: utils.MD5(password),
 	}
 	// 4. 提交服务
-	privateKey, err := service.UserAddService(newUser)
+	privateKey, err := service.UserAdd(newUser)
 	// 5. 响应请求
 	if err != nil {
 		ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
@@ -43,7 +43,7 @@ func UserEmailVerify(ctx *gin.Context) {
 	// 1. 读取POST参数
 	account := ctx.PostForm("account")
 	// 2. 验证邮箱是否存在
-	err := service.UserEmailVerifyService(account)
+	err := service.UserEmailVerifySend(account)
 	//// 3. 判断结果
 	switch err {
 	case nil:
@@ -60,7 +60,7 @@ func UserLogin(ctx *gin.Context) {
 	account := ctx.PostForm("account")
 	password := ctx.PostForm("password")
 	// 2. 提交登录服务
-	token, err := service.UserLoginService(domain.User{
+	token, err := service.UserLogin(domain.User{
 		Account:  account,
 		Password: utils.MD5(password),
 	})
