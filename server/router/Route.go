@@ -62,4 +62,6 @@ func collectClockRoute(r *gin.Engine) {
 	r.GET(clockApiURI, middleware.AuthMiddleWare(), api.ClockQueryByOwner)
 	// 打卡
 	r.PUT(clockApiURI+"/:clockId", middleware.AuthMiddleWare(), api.ClockIn)
+	// 删除打卡
+	r.DELETE(clockApiURI+"/:clockId", middleware.AuthMiddleWare(), api.ClockDelete)
 }
