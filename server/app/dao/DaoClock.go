@@ -40,3 +40,20 @@ func ClockDelete(inputClock domain.Clock) error {
 	_, err = engine.Delete(inputClock)
 	return err
 }
+
+func ClockIsGonnaFinished(id int64) (bool, error) {
+	clock := &domain.Clock{Id: id}
+	_, err := engine.Get(clock)
+	if err != nil {
+		return false, err
+	}
+	// target为-1则无上限
+	if clock.AchieveTarget == -1 {
+		return false, nil
+	}
+	// 即将达成
+	if clock.AchieveNow+1 >= clock.AchieveTarget {
+		return true, nil
+	}
+	return false, nil
+}

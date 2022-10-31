@@ -20,6 +20,15 @@ func ClockClockIn(id int64, owner string) error {
 		Id:    id,
 		Owner: owner,
 	}
+	// 判断是否达成目标
+	isGonnaFinished, err := dao.ClockIsGonnaFinished(id)
+	if err != nil {
+		return err
+	}
+	if isGonnaFinished {
+		// 将状态修改为已完成
+		inputClock.Status = 2
+	}
 	achieveNow, err := dao.ClockGetAchieveNow(inputClock)
 	if err != nil {
 		return err
