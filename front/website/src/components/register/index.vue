@@ -1,38 +1,63 @@
 <template>
     <div class="page">
         <div class="container">
-            <div class="left">
-                <div class="login">Login</div>
-                <div class="eula">这里将会展示我收集的地狱笑话（你自己显示点别的吧 :-D
-                </div>
-            </div>
             <div class="right">
                 <div class="form">
+
                     <label for="email"><i>
-                            <i>
-                                <n-icon>
-                                    <MdPerson />
-                                </n-icon>
-                            </i>
-                        </i> Email</label>
+                            <n-icon>
+                                <MdPerson />
+                            </n-icon>
+                        </i> Email
+                    </label>
                     <input type="email" id="email">
                     <div class="Line"></div>
-                    <label for="password"><i>
+                    <label for="password1"><i>
                             <n-icon>
                                 <LockOpen />
                             </n-icon>
-                        </i> Password</label>
-                    <input type="password" id="password">
+                        </i> 输入密码</label>
+                    <input type="password" id="password1">
                     <div class="Line"></div>
-                    <input class="sub" type="submit" id="submit" value="登录">
-                    <a href="">忘记密码？</a>
-                    &nbsp;
-                    <a href="./register">注册</a>
+                    <label for="password2"><i>
+                            <n-icon>
+                                <LockOpen />
+                            </n-icon>
+                        </i> 再次输入密码</label>
+                    <input type="password" id="password2">
+                    <div class="Line"></div>
+                    <label for="code"><i>
+                            <n-icon>
+                                <MessageCircle />
+                            </n-icon>
+                        </i> 验证码</label>
+                    <div style="width: 100px;">
+                        <n-grid x-gap="12" :col="24">
+                            <n-grid-item>
+                                <input style="width: 180px;" maxlength="6" type="text" id="code">
+                            </n-grid-item>
+                            <n-grid-item :offset="7">
+                                <n-button quaternary type="info" class="button">
+                                    <template #icon>
+                                        <n-icon>
+                                            <cash-icon />
+                                        </n-icon>
+                                    </template>获取
+                                </n-button>
+                            </n-grid-item>
+                        </n-grid>
+                    </div>
+                    <div class="Line"></div>
+                    <input class="sub" type="submit" id="submit" value="注册">
+                </div>
+            </div>
+            <div class="left">
+                <div class="login">Register</div>
+                <div class="eula">这里将会展示我收集的地狱笑话（你自己显示点别的吧 :-D
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <style scoped>
@@ -50,10 +75,8 @@
     background: #2d2f36;
 }
 
-a {
-    font-size: 10px;
-    text-decoration: none;
-    color: #d0d0d2;
+.button {
+    height: 25px;
 }
 
 .Line {
@@ -82,7 +105,7 @@ a {
 
 .container {
     display: flex;
-    height: 320px;
+    height: 420px;
     margin: 0 auto;
     width: 640px;
 }
@@ -153,6 +176,7 @@ path {
 .form {
     margin: 40px;
     position: absolute;
+    width: 250px;
 }
 
 label {
@@ -168,8 +192,8 @@ input {
     background: transparent;
     border: 0;
     color: #f2f2f2;
-    font-size: 20px;
-    height: 30px;
+    font-size: 16px;
+    height: 15px;
     line-height: 30px;
     outline: none !important;
     width: 100%;
@@ -196,23 +220,29 @@ input::-moz-focus-inner {
 .sub {
     text-shadow: 0 0 1px rgba(195, 241, 241, 0.521);
     border-bottom: 1px solid rgba(0, 0, 0, 0.233);
+    height: 30px;
 }
 </style>
 
 <script lang='ts'>
 import { Options, Vue } from 'vue-class-component';
+import { NButton, NGrid, NGridItem, NIcon } from 'naive-ui'
+import { CashOutline as CashIcon, LockOpen } from '@vicons/ionicons5'
 import { MdPerson } from '@vicons/ionicons4'
-import { LockOpen } from '@vicons/ionicons5'
-import { NIcon } from 'naive-ui';
-
+import { MessageCircle } from '@vicons/tabler';
 @Options({
     components: {
+        NButton,
+        NGrid,
+        NGridItem,
+        NIcon,
+        CashIcon,
         MdPerson,
         LockOpen,
-        NIcon
+        MessageCircle,
     }
 })
-export default class Login extends Vue {
+export default class register extends Vue {
 
 }
 
