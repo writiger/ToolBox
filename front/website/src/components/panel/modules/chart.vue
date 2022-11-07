@@ -1,6 +1,5 @@
 <template>
     <n-card>
-        <h3>最近30天打卡情况</h3>
         <v-chart class="chart" :option="option" />
     </n-card>
 </template>
@@ -8,7 +7,7 @@
 <script>
 import { NCard } from 'naive-ui'
 import { use } from 'echarts/core';
-import { GridComponent } from 'echarts/components';
+import { GridComponent, TitleComponent } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -20,7 +19,8 @@ use([
     GridComponent,
     LineChart,
     CanvasRenderer,
-    UniversalTransition
+    UniversalTransition,
+    TitleComponent
 ]);
 const xData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 

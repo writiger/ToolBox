@@ -23,7 +23,7 @@
 <style scoped>
 #timedate {
     background-color: #3b3b3b;
-    font: small-caps lighter 20px/150% "Segoe UI", Frutiger, "Frutiger Linotype",
+    font: small-caps lighter 18px/150% "Segoe UI", Frutiger, "Frutiger Linotype",
         "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
     text-align: left;
     width: auto;

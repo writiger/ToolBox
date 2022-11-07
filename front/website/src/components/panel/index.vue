@@ -12,8 +12,8 @@
                 </n-card>
             </n-grid-item>
             <n-grid-item>
-                <n-card class="firstThree" title="番茄钟" hoverable>
-                    卡片内容
+                <n-card class="firstThree" title="番茄钟（最少20分钟" hoverable>
+                    <Tomato></Tomato>
                 </n-card>
             </n-grid-item>
         </n-grid>
@@ -80,7 +80,8 @@ import {
     NCarousel,
     NCarouselItem,
 } from 'naive-ui'
-import chart from './chart.vue'
+import Tomato from './modules/tomato.vue'
+import Chart from './modules/chart.vue'
 import { Options, Vue } from "vue-class-component"
 @Options({
     components: {
@@ -89,7 +90,8 @@ import { Options, Vue } from "vue-class-component"
         NCard,
         NCarousel,
         NCarouselItem,
-        chart
+        Chart,
+        Tomato
     }
 })
 export default class Panel extends Vue {

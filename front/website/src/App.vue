@@ -1,13 +1,17 @@
 <template>
-  <Header></Header>
-  <RouterView />
+  <n-message-provider>
+    <Header></Header>
+    <RouterView />
+  </n-message-provider>
 </template>
 <script lang="ts">
+import { NMessageProvider } from 'naive-ui'
 import { Vue, Options } from 'vue-class-component';
 import Header from '@/components/header/index.vue'
 @Options({
   components: {
-    Header
+    Header,
+    NMessageProvider
   }
 })
 export default class App extends Vue {
