@@ -66,7 +66,7 @@ a {
     background: #e2e2e5;
     display: flex;
     flex-direction: column;
-    height: calc(100%);
+    height: calc(90%);
     position: absolute;
     place-content: center;
     width: calc(100%);
@@ -83,7 +83,7 @@ a {
 .container {
     display: flex;
     height: 320px;
-    margin: 0 auto;
+    margin: auto;
     width: 640px;
 }
 
