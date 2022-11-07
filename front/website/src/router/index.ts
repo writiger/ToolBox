@@ -13,14 +13,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/components/register/index.vue")
     },
     {
-        path: "/panel",
+        path: "/",
         name: "Panel",
         component: () => import("@/components/panel/index.vue")
     },
-    {
-        path: "/",
-        component: () => import("@/App.vue"),
-    }
 ];
 // 1.返回一个 router 实列，为函数，里面有配置项（对象） history
 const router = createRouter({

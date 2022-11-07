@@ -3,12 +3,12 @@
         <n-grid x-gap="48" :cols="3">
             <n-grid-item>
                 <n-card class="firstThree" title="打卡" hoverable>
-                    卡片内容
+                    <clock></clock>
                 </n-card>
             </n-grid-item>
             <n-grid-item>
                 <n-card class="firstThree" title="查询密码" hoverable>
-                    卡片内容
+                    <password></password>
                 </n-card>
             </n-grid-item>
             <n-grid-item>
@@ -20,8 +20,8 @@
         <br>
         <n-grid x-gap="48" :cols="4">
             <n-grid-item :span="1">
-                <n-card class="calendar" title="日程" hoverable>
-                    卡片内容
+                <n-card class="calendar" hoverable>
+                    <a href="#">编辑日程</a>
                 </n-card>
             </n-grid-item>
             <n-grid-item :span="3">
@@ -81,6 +81,8 @@ import {
     NCarouselItem,
 } from 'naive-ui'
 import Tomato from './modules/tomato.vue'
+import Password from './modules/password.vue'
+import Clock from './modules/clock.vue'
 import Chart from './modules/chart.vue'
 import { Options, Vue } from "vue-class-component"
 @Options({
@@ -91,7 +93,9 @@ import { Options, Vue } from "vue-class-component"
         NCarousel,
         NCarouselItem,
         Chart,
-        Tomato
+        Tomato,
+        Password,
+        Clock
     }
 })
 export default class Panel extends Vue {
