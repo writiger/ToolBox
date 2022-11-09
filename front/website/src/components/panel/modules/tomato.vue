@@ -107,6 +107,10 @@ export default class tomato extends Vue {
         }
     }
     startTomato() {
+        if (this.rlx == this.stu && this.stu == 0) {
+            this.rlx = 5
+            this.stu = 25
+        }
         if (this.isStart == "green") {
             if (!this.pause) {
                 this.checkTime()
