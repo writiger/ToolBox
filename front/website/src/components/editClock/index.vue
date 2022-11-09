@@ -45,13 +45,13 @@
                         </div>
                     </div>
                     <template #footer>
-                        <n-button text color="#8a2be2" @click="moveShow(index1,-1)">
+                        <n-button text color="#8a2be2" @click="moveShowUp(index1)">
                             <n-icon>
                                 <ArrowUp12Filled />
                             </n-icon>
                         </n-button>&nbsp;
                         <n-button size="tiny" strong secondary type="warning">SaveAll</n-button>&nbsp;
-                        <n-button text color="#ff69b4" @click="moveShow(index1,1)">
+                        <n-button text color="#ff69b4" @click="moveShowDown(index1)">
                             <n-icon>
                                 <ArrowDown12Filled />
                             </n-icon>
@@ -127,7 +127,7 @@ export default class editClock extends Vue {
             "time": 0
         })
         if (this.eventNum[index1]['length'] > 5) {
-            this.moveShow(index1, 1)
+            this.moveShowDown(index1)
         }
     }
     handleDeleteClick(i, j) {
@@ -135,15 +135,20 @@ export default class editClock extends Vue {
     }
     //为了解决轮播图高度问题不得不出此下策
     showEvents = [0, 0, 0, 0, 0, 0, 0]
-    moveShow(index1, num) {
+    moveShowUp(index1) {
         var temp = this.showEvents[index1]
-        if (temp + num == -1) {
+        if (temp == 0) {
             return
         }
-        if (temp + 5 + num > this.eventNum[index1]['length']) {
+        this.showEvents[index1] -= 1
+    }
+    moveShowDown(index1) {
+        var temp = this.showEvents[index1]
+        if (temp + 6 > this.eventNum[index1]['length']) {
             return
         }
-        this.showEvents[index1] += num
+        this.showEvents[index1] += 1
+
     }
     eventNum = [
         [
