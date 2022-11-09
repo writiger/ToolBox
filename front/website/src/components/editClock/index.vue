@@ -9,8 +9,7 @@
                         <div v-if="showEvents[index1]<=index2 && index2<showEvents[index1]+5">
                             <n-grid :x-grap="16" :cols="14">
                                 <n-grid-item :span="1">
-                                    {{showEvents[index1]<=index2 && index2<showEvents[index1]+5}} <n-popconfirm
-                                        negative-text="算了" @positive-click="handleDeleteClick(index1,index2)"
+                                    <n-popconfirm negative-text="算了" @positive-click="handleDeleteClick(index1,index2)"
                                         positive-text="确认">
 
                                         <template #trigger>
@@ -20,8 +19,8 @@
                                                 </n-icon>
                                             </n-button>
                                         </template>
-                                        确认要删除第{{index2+1}}个事件么?
-                                        </n-popconfirm>
+                                        确认要删除第{{index2+1}}个事件"{{value.info}}"么?
+                                    </n-popconfirm>
                                 </n-grid-item>
                                 <n-grid-item :span="4">
                                     <n-input maxlength="10" show-count clearable v-model:value="value.info" />
