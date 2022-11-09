@@ -1,6 +1,6 @@
 <template>
-    <n-grid :cols="2">
-        <n-grid-item>
+    <n-grid :cols="3">
+        <n-grid-item :span="2">
             <calen-l></calen-l>
         </n-grid-item>
         <n-grid-item>

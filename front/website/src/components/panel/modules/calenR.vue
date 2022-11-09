@@ -28,10 +28,10 @@ use([TitleComponent, PieChart, LabelLayout, CanvasRenderer])
 
 const option = reactive({
     title: {
-        text: 'Work OR Rleax',
+        text: 'Work Rleax',
         left: 'center',
         textStyle: {
-            fontSize: 8
+            fontSize: 7
         }
     },
     series: [
