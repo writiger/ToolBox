@@ -1,182 +1,196 @@
 <template>
-    <div class="panel">
-        <n-carousel effect="card" prev-slide-style="transform: translateX(-150%) translateZ(-800px);"
-            next-slide-style="transform: translateX(50%) translateZ(-800px);" style="height: 700px;" :show-dots="false">
-
-            <n-carousel-item v-for="(day,index1) in whatDay" :key="index1" :style="{ width: '50%' }">
-                <n-card class="dayCard" :title="day">
-                    <div class="perEvent" v-for="(value,index2) in eventNum[index1]" :key="index2">
-                        <div v-if="showEvents[index1]<=index2 && index2<showEvents[index1]+5">
-                            <n-grid :x-grap="16" :cols="14">
-                                <n-grid-item :span="1">
-                                    <n-popconfirm negative-text="算了" @positive-click="handleDeleteClick(index1,index2)"
-                                        positive-text="确认">
-
-                                        <template #trigger>
-                                            <n-button text style="font-size: 28px" type="error">
-                                                <n-icon>
-                                                    <Delete16Regular />
-                                                </n-icon>
-                                            </n-button>
-                                        </template>
-                                        确认要删除第{{index2+1}}个事件"{{value.info}}"么?
-                                    </n-popconfirm>
-                                </n-grid-item>
-                                <n-grid-item :span="4">
-                                    <n-input maxlength="10" show-count clearable v-model:value="value.info" />
-                                </n-grid-item>
-                                <n-grid-item :span="1">
-                                    <n-button @click="addEvent(index1,index2)" small style="margin-top:7px" text
-                                        type="success">
-                                        <n-icon>
-                                            <Add28Filled />
-                                        </n-icon>
-                                    </n-button>
-                                </n-grid-item>
-                                <n-grid-item :span="8">
-                                    <n-space vertical size="small">
-                                        <n-slider v-model:value="value.time" :step="5" size="tiny" />
-                                        <n-input-number size="tiny" v-model:value="value.time" />
-                                    </n-space>
-                                </n-grid-item>
-                            </n-grid>
-                            <n-divider />
-                        </div>
-                    </div>
-                    <template #footer>
-                        <n-button text color="#8a2be2" @click="moveShowUp(index1)">
-                            <n-icon>
-                                <ArrowUp12Filled />
-                            </n-icon>
-                        </n-button>&nbsp;
-                        <n-button size="tiny" strong secondary type="warning">SaveAll</n-button>&nbsp;
-                        <n-button text color="#ff69b4" @click="moveShowDown(index1)">
-                            <n-icon>
-                                <ArrowDown12Filled />
-                            </n-icon>
-                        </n-button>
-                    </template>
-                </n-card>
-            </n-carousel-item>
-        </n-carousel>
+    <div class="container">
+        <div class="clock" v-for="(value,index) in clocks" :key="index">
+            <n-card>
+                | <span>{{value.name}}</span> |<span v-if="value.achieve_now >= value.achieve_target">
+                    <n-icon :size="22">
+                        <StarEmphasis24Filled style="margin-bottom: -5px;" color="rgb(251, 213, 60)" />
+                    </n-icon>
+                </span>
+                <n-divider></n-divider>
+                目标: <span :style="getColor(index)">{{value.achieve_now}}/{{parseAT(value.achieve_target)}}</span>
+                <br>
+                循环: {{getTimes(index)}}
+                <br>
+                <n-button size="tiny" type="error" dashed>删除</n-button>&nbsp;
+                <n-button size="tiny" type="success">打卡</n-button>
+            </n-card>
+        </div>
     </div>
 </template>
 
 <style scoped>
-.panel {
-    margin: 40px 68px 0 68px;
-}
-
-.dayCard {
+.clock {
+    float: left;
+    width: 17%;
+    box-sizing: border-box;
+    padding: 10px;
+    min-width: 150px;
     text-align: center;
-    margin: 0 auto;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    margin: 20px;
 }
 
-.perEvent {
-    margin-bottom: 3px;
+.container {
+    width: 100%;
+}
+
+@media (max-width:615px) {
+    .clock {
+        float: left;
+        width: 33%;
+        box-sizing: border-box;
+        padding: 10px;
+        min-width: 150px;
+    }
+}
+
+@media (max-width:465px) {
+    .clock {
+        float: left;
+        width: 40%;
+        box-sizing: border-box;
+        padding: 10px;
+        min-width: 150px;
+    }
+}
+
+@media (max-width:315px) {
+    .clock {
+        float: left;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+    }
 }
 </style>
 
 <script lang='ts'>
+import { NCard, NDivider, NSpace, NButton, NIcon } from "naive-ui";
 import { Options, Vue } from "vue-class-component"
-import { Delete16Regular, Add28Filled, ArrowUp12Filled, ArrowDown12Filled } from "@vicons/fluent"
-import {
-    NSpace,
-    NCarousel,
-    NCarouselItem,
-    NCard,
-    NButton,
-    NGrid,
-    NGridItem,
-    NInput,
-    NIcon,
-    NPopconfirm,
-    NSlider,
-    NInputNumber,
-    NDivider
-} from 'naive-ui'
+import { StarEmphasis24Filled } from "@vicons/fluent"
 @Options({
     components: {
-        NSpace,
-        NCarousel,
-        NCarouselItem,
         NCard,
-        NButton,
-        NGrid,
-        NGridItem,
-        NInput,
-        NIcon,
-        Delete16Regular,
-        NPopconfirm,
-        Add28Filled,
-        NSlider,
-        NInputNumber,
         NDivider,
-        ArrowUp12Filled,
-        ArrowDown12Filled
+        NSpace,
+        NButton,
+        StarEmphasis24Filled,
+        NIcon
     }
 })
-export default class editClock extends Vue {
-    addEvent(index1, index2) {
-        this.eventNum[index1].splice(index2 + 1, 0, {
-            "info": "",
-            "time": 0
-        })
-        if (this.eventNum[index1]['length'] > 5) {
-            this.moveShowDown(index1)
+export default class Clock extends Vue {
+    parseAT(num) {
+        if (num == -1) {
+            return "∞"
         }
+        return String(num)
     }
-    handleDeleteClick(i, j) {
-        this.eventNum[i].splice(j, 1)
-    }
-    //为了解决轮播图高度问题不得不出此下策
-    showEvents = [0, 0, 0, 0, 0, 0, 0]
-    moveShowUp(index1) {
-        var temp = this.showEvents[index1]
-        if (temp == 0) {
-            return
+    getTimes(num) {
+        var str = this.clocks[num].interval
+        if (str == "-1") {
+            return "不用"
         }
-        this.showEvents[index1] -= 1
-    }
-    moveShowDown(index1) {
-        var temp = this.showEvents[index1]
-        if (temp + 6 > this.eventNum[index1]['length']) {
-            return
+        // var res = ""
+        var min = str[0] + str[1]
+        var h = str[2] + str[3]
+        var day = str[4] + str[5]
+        var mon = str[6] + str[7]
+        var week = str[9]
+        switch (week) {
+            case "1":
+                return "每周一"
+            case "2":
+                return "每周二"
+            case "3":
+                return "每周三"
+            case "4":
+                return "每周四"
+            case "5":
+                return "每周五"
+            case "6":
+                return "每周六"
+            case "7":
+                return "每周日"
         }
-        this.showEvents[index1] += 1
-
+        var res = "每"
+        if (mon != "00") {
+            if (mon[0] != "0")
+                res += "每" + mon + "月"
+            else
+                res += "每" + mon[1] + "月"
+        }
+        if (day != "00") {
+            if (day[0] != "0")
+                res += day
+            else
+                res += day[1]
+        }
+        if (day !== "00" || mon != "00")
+            return res + "号"
+        if (h != "00") {
+            if (h[0] != "0")
+                res += h + "小时"
+            else
+                res += h[1] + "小时"
+        }
+        if (min != "00") {
+            if (min[0] != "0")
+                res += min + "分钟"
+            else
+                res += min[1] + "分钟"
+        }
+        return res
     }
-    eventNum = [
-        [
-            { "info": "1", "time": 40 },
-            { "info": "2", "time": 40 },
-            { "info": "3", "time": 40 }
-        ],
-        [
-            { "info": "4", "time": 40 },
-            { "info": "5", "time": 40 },
-            { "info": "6", "time": 40 }
-        ],
-        [
-            { "info": "", "time": 0 },
-        ],
-        [
-            { "info": "", "time": 0 },
-        ],
-        [
-            { "info": "", "time": 0 },
-        ],
-        [
-            { "info": "", "time": 0 },
-        ],
-        [
-            { "info": "", "time": 0 },
-        ],
+    getColor(num) {
+        // 完成越多越绿
+        var span = this.clocks[num]
+        if (span.achieve_target == -1) {
+            return "color:green"
+        }
+        if (span.achieve_now >= span.achieve_target) {
+            return "color:green"
+        }
+        var g = span.achieve_now / span.achieve_target * 255
+        return "color:rgb(" + String(255 - g) + "," + String(g) + ",0)"
+    }
+    clocks = [
+        {
+            "name": "吃饭szdas2",
+            "kind": 3,
+            "start": 1667113518,
+            "achieve_target": 6,
+            "achieve_now": 7,
+            "interval": "-1",
+            "status": 2
+        },
+        {
+            "name": "吃饭",
+            "kind": 1,
+            "start": 1667113518,
+            "achieve_target": 5,
+            "achieve_now": 0,
+            "interval": "3000060001",
+            "status": 1
+        },
+        {
+            "name": "吃饭",
+            "kind": 1,
+            "start": 1667113518,
+            "achieve_target": 10,
+            "achieve_now": 5,
+            "interval": "0000060000",
+            "status": 1
+        },
+        {
+            "name": "吃饭",
+            "kind": 2,
+            "start": 1667113518,
+            "achieve_target": -1,
+            "achieve_now": 0,
+            "interval": "0100000000",
+            "status": 1
+        },
     ]
-    whatDay = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期七",]
 }
 
 </script>

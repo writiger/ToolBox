@@ -4,7 +4,7 @@
             <n-statistic label="你一共使用了" tabular-nums>
                 <n-number-animation ref="numberAnimationInstRef" :from="0" :to="12039" />
                 <template #suffix>
-                    次打卡
+                    次<a href="/clock">打卡</a>
                 </template>
 
             </n-statistic>
@@ -16,7 +16,10 @@
 </template>
 
 <style scoped>
-
+a {
+    text-decoration: none;
+    color:crimson;
+}
 </style>
 
 <script lang='ts'>

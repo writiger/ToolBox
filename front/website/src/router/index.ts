@@ -13,8 +13,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/components/register/index.vue")
     },
     {
-        path: "/edit",
-        name: 'Edit',
+        path: "/calendar",
+        name: 'Calendar',
+        component: () => import("@/components/editCalendar/index.vue")
+    },
+    {
+        path: "/clock",
+        name: 'Clock',
         component: () => import("@/components/editClock/index.vue")
     },
     {

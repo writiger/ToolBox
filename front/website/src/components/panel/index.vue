@@ -21,7 +21,7 @@
         <n-grid x-gap="48" :cols="4">
             <n-grid-item :span="1">
                 <n-card class="calendar" hoverable>
-                    <a class="edit" href="/edit">编辑日程</a>
+                    <a class="edit" href="/calendar">编辑日程</a>
                     <calendar></calendar>
                 </n-card>
             </n-grid-item>
