@@ -65,7 +65,11 @@ export default class Header extends Vue {
         for (var i = 0; i < this.tags.length; i++) {
             var temp = document.getElementById(this.tags[i])!
             if (i != 0) {
-                temp.innerHTML = String(now[i])
+                if (now[i] < 10) {
+                    temp.innerHTML = "0" + String(now[i])
+                } else {
+                    temp.innerHTML = String(now[i])
+                }
             } else {
                 temp.innerHTML = this.months[now[i]]
             }
