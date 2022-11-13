@@ -27,7 +27,7 @@
                     <input class="sub" type="submit" id="submit" value="登录">
                     <a href="">忘记密码？</a>
                     &nbsp;
-                    <a href="./register">注册</a>
+                    <router-link to="/register">注册</router-link>
                 </div>
             </div>
         </div>
