@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <div class="clock">
+            <AddClock />
+        </div>
         <div class="clock" v-for="(value,index) in clocks" :key="index">
             <n-card>
                 | <span>{{value.name}}</span> |<span v-if="value.achieve_now >= value.achieve_target">
@@ -65,7 +68,8 @@
 </style>
 
 <script lang='ts'>
-import { NCard, NDivider, NSpace, NButton, NIcon } from "naive-ui";
+import { NCard, NDivider, NSpace, NButton, NIcon, NInput } from "naive-ui";
+import AddClock from "./addClock.vue"
 import { Options, Vue } from "vue-class-component"
 import { StarEmphasis24Filled } from "@vicons/fluent"
 @Options({
@@ -75,7 +79,9 @@ import { StarEmphasis24Filled } from "@vicons/fluent"
         NSpace,
         NButton,
         StarEmphasis24Filled,
-        NIcon
+        NIcon,
+        NInput,
+        AddClock
     }
 })
 export default class Clock extends Vue {
