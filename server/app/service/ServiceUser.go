@@ -12,22 +12,22 @@ func UserEmailVerifySend(account string) error {
 		Account: account,
 	}
 	// 1. 邮箱已存在 返回错误码
-	has, err1 := dao.UserIsExist(inputUser)
-	if err1 != nil {
-		return err1
+	has, err := dao.UserIsExist(inputUser)
+	if err != nil {
+		return err
 	}
 	if has {
 		return errorcode.GetErr(errorcode.ErrUserAlreadyExist)
 	}
 	// 2. 邮箱不存在 生成验证码 保存redis
 	code := verification.GenerateRegisterCode()
-	err2 := dao.UserEmailRedisSet(inputUser, code)
-	if err2 != nil {
-		return err2
+	err = dao.UserEmailRedisSet(inputUser, code)
+	if err != nil {
+		return err
 	}
 	// 3. 发送邮件 并返回
-	err3 := verification.SendMail(account, code)
-	return err3
+	err = verification.SendMail(account, code)
+	return err
 }
 
 func UserEmailVerifyCode(account string, code string) bool {
