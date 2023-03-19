@@ -47,8 +47,7 @@ func UserAdd(inputUser domain.User) (string, error) {
 	return privateKey, err
 }
 
-// UserLogin
-// @return string "由查询到的用户生成token 返回空则登陆失败"
+// UserLogin 由查询到的用户生成token 返回空则登陆失败
 func UserLogin(inputUser domain.User) (string, error) {
 	has, err := dao.UserIsExist(inputUser)
 	if err != nil {
@@ -75,4 +74,8 @@ func UserLogin(inputUser domain.User) (string, error) {
 			return "", errorcode.GetErr(errorcode.ErrUserWrongPassword)
 		}
 	}
+}
+
+func UserChange(inputUser *domain.User) error {
+	return dao.UserChangePayInfo(inputUser)
 }

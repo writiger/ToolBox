@@ -42,3 +42,8 @@ func UserLogin(inputUser *domain.User) (domain.User, error) {
 		return domain.User{}, errorcode.GetErr(errorcode.ErrUserWrongPassword)
 	}
 }
+
+func UserChangePayInfo(inputUser *domain.User) error {
+	_, err := engine.ID(inputUser.Id).Update(inputUser)
+	return err
+}

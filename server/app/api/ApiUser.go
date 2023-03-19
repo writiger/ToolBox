@@ -1,12 +1,14 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"server/app/domain"
 	"server/app/service"
 	"server/error_code"
 	"server/response"
 	"server/utils"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -73,4 +75,34 @@ func UserLogin(ctx *gin.Context) {
 	}
 	// 4. 登陆失败 返回失败原因
 	ctx.JSON(http.StatusOK, response.Err.WithMsg(err.Error()))
+}
+
+func UserChangePay(ctx *gin.Context) {
+	// 1. 读取用户id
+	ownerAny, _ := ctx.Get("userId")
+	// 断言类型
+	owner := ownerAny.(int64)
+	// 2. 读取POST参数
+	balanceStr := ctx.PostForm("balance")
+	payday := ctx.PostForm("payday")
+	baseStr := ctx.PostForm("base")
+	balance, err := strconv.Atoi(balanceStr)
+	base, err := strconv.Atoi(baseStr)
+	if err != nil {
+		ctx.JSON(http.StatusBadGateway, response.Err.WithMsg(err.Error()))
+		return
+	}
+	userGet := domain.User{
+		Id:       owner,
+		Balance:  balance,
+		PayDay:   payday,
+		BaseDisk: base,
+	}
+	fmt.Println(userGet)
+	// 2.调用服务
+	err = service.UserChange(&userGet)
+	if err != nil {
+		ctx.JSON(http.StatusBadGateway, response.Err.WithMsg(err.Error()))
+		return
+	}
 }
