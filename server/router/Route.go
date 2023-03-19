@@ -13,6 +13,7 @@ func CollectRoute(r *gin.Engine) {
 	collectMemoRoute(r)
 	collectCipherRoute(r)
 	collectClockRoute(r)
+	collectConsumption(r)
 }
 
 func collectUserRoute(r *gin.Engine) {
@@ -26,7 +27,8 @@ func collectUserRoute(r *gin.Engine) {
 	r.POST(userApiURI, api.UserRegister)
 	// 登录
 	r.POST(userApiURI+"/login", api.UserLogin)
-
+	// 修改余额信息
+	r.PUT(userApiURI+"/pay", middleware.AuthMiddleWare(), api.UserChangePay)
 }
 
 func collectMemoRoute(r *gin.Engine) {
@@ -64,4 +66,13 @@ func collectClockRoute(r *gin.Engine) {
 	r.PUT(clockApiURI+"/:clockId", middleware.AuthMiddleWare(), api.ClockIn)
 	// 删除打卡
 	r.DELETE(clockApiURI+"/:clockId", middleware.AuthMiddleWare(), api.ClockDelete)
+}
+
+func collectConsumption(r *gin.Engine) {
+	clockApiURI := "/api/consumption"
+
+	// 新增消费记录
+	r.POST(clockApiURI, middleware.AuthMiddleWare(), api.ConsumptionCost)
+	// 查询一个月的消费记录
+	r.GET(clockApiURI+"/month/:start", middleware.AuthMiddleWare(), api.ConsumptionGetMonth)
 }

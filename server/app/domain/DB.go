@@ -54,7 +54,7 @@ func InitSqlDB() *xorm.Engine {
 
 func InitTable() {
 	// 创建表
-	err := engine.Sync(new(User), new(Memo), new(Cipher), new(Clock))
+	err := engine.Sync(new(User), new(Memo), new(Cipher), new(Clock), new(Consumption))
 	if err != nil {
 		panic(err.Error())
 	}

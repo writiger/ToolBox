@@ -30,19 +30,16 @@ func MemoUpload(ctx *gin.Context) {
 	info := ctx.PostForm("info")
 	// 断言类型
 	owner := ownerAny.(int64)
-	status, err := strconv.Atoi(ctx.PostForm("status"))
+	endTime, err := strconv.ParseInt(ctx.PostForm("end_time"), 10, 64)
 	if err != nil {
 		ctx.JSON(http.StatusOK, response.ErrParam)
-	}
-	endTime, err2 := strconv.ParseInt(ctx.PostForm("end_time"), 10, 64)
-	if err2 != nil {
-		ctx.JSON(http.StatusOK, response.ErrParam)
+		return
 	}
 	// 2. 生成Memo
 	memoInput := domain.Memo{
 		Owner:   owner,
 		Info:    info,
-		Status:  status,
+		Status:  0,
 		EndTime: endTime,
 	}
 	// 3. 调用服务
