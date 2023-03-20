@@ -69,10 +69,12 @@ func collectClockRoute(r *gin.Engine) {
 }
 
 func collectConsumption(r *gin.Engine) {
-	clockApiURI := "/api/consumption"
+	consumptionApiURI := "/api/consumption"
 
 	// 新增消费记录
-	r.POST(clockApiURI, middleware.AuthMiddleWare(), api.ConsumptionCost)
+	r.POST(consumptionApiURI, middleware.AuthMiddleWare(), api.ConsumptionCost)
 	// 查询一个月的消费记录
-	r.GET(clockApiURI+"/month/:start", middleware.AuthMiddleWare(), api.ConsumptionGetMonth)
+	r.GET(consumptionApiURI+"/month/:start", middleware.AuthMiddleWare(), api.ConsumptionGetMonth)
+	// 查询用户的恩格尔系数
+	r.GET(consumptionApiURI+"/engel/:userId", api.ConsumptionEngel)
 }

@@ -4,32 +4,12 @@ import (
 	"fmt"
 	u "server/utils"
 
-	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"xorm.io/xorm"
 )
 
 // 使用xorm映射数据库
 var engine *xorm.Engine
-
-// 声明一个全局的redisDb变量
-var redisDb *redis.Client
-
-func InitRedisClient() *redis.Client {
-	c := u.GetConf()
-	// 获取redisClient
-	redisDb = redis.NewClient(&redis.Options{
-		Addr:     c.RedisSourceName,
-		Password: c.RedisPassword,
-		DB:       c.RedisDB,
-	})
-	_, err := redisDb.Ping().Result()
-	if err != nil {
-		panic(err.Error())
-	}
-	fmt.Println("Redis连接成功")
-	return redisDb
-}
 
 // InitSqlDB 初始化数据库
 func InitSqlDB() *xorm.Engine {

@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// ConsumptionCost 新增消费记录
 func ConsumptionCost(ctx *gin.Context) {
 	// 1. 读取用户id
 	ownerAny, _ := ctx.Get("userId")
@@ -45,6 +46,7 @@ func ConsumptionCost(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response.OK)
 }
 
+// ConsumptionGetMonth 查询用户一个月的消费记录
 func ConsumptionGetMonth(ctx *gin.Context) {
 	// 1. 读取用户id
 	ownerAny, _ := ctx.Get("userId")
@@ -65,4 +67,22 @@ func ConsumptionGetMonth(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, response.OK.WithData(res))
+}
+
+// ConsumptionEngel 查询用户的恩格尔系数
+func ConsumptionEngel(ctx *gin.Context) {
+	// 1. 获取路径中的用户ID
+	idStr := ctx.Param("userId")
+	userId, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadGateway, response.Err.WithMsg(err.Error()))
+		return
+	}
+	// 2. 调用服务
+	engel, err := service.ConsumptionEngel(userId)
+	if err != nil {
+		ctx.JSON(http.StatusBadGateway, response.Err.WithMsg(err.Error()))
+		return
+	}
+	ctx.JSON(http.StatusOK, response.OK.WithData(engel))
 }
