@@ -2,6 +2,10 @@
 
 [![standard-readme compliant](https://camo.githubusercontent.com/f116695412df39ab3c98d8291befdb93af123f56aecc79fff4b20c410a5b54c7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f726561646d652532307374796c652d7374616e646172642d627269676874677265656e2e7376673f7374796c653d666c61742d737175617265)](https://github.com/RichardLitt/standard-readme)
 
+[接口文档ApiFox](https://www.apifox.cn/apidoc/shared-c8e90d57-35a1-4ca2-9412-e3b341d4e1b1/api-65866014)
+
+[项目地址](https://github.com/writiger/ToolBox)
+
 ## 背景
 
 这是一个用来解决个人烦恼的工具箱
@@ -12,7 +16,7 @@
 * 总是突然有什么想玩的游戏过两天就忘
 * 记录一些专业的词意
 * 制作时间表 打卡 
-* 消费记录
+* 消费记录j
 * （想到了再补充）
 
 
