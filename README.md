@@ -6,11 +6,31 @@
 
 [项目地址](https://github.com/writiger/ToolBox)
 
-## 运行截图
+## 部分运行截图
 
-### 接口
+### 登录接口
 
+![image-20230406104346413](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/image-20230406104346413.png)
 
+### 注册接口
+
+![image-20230406104915885](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/image-20230406104915885.png)
+
+### 查看我的打卡
+
+![image-20230406105743272](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/image-20230406105743272.png)
+
+### 上传备忘录接口
+
+![image-20230406105509263](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/image-20230406105509263.png)
+
+### 查询密码
+
+![image-20230406105606909](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/image-20230406105606909.png)
+
+### 恩格尔系数查询接口
+
+![image-20230406105839448](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/image-20230406105839448.png)
 
 ## 背景
 
@@ -22,7 +42,7 @@
 * 总是突然有什么想玩的游戏过两天就忘
 * 记录一些专业的词意
 * 制作时间表 打卡 
-* 消费记录j
+* 消费记录
 * （想到了再补充）
 
 
@@ -40,6 +60,22 @@
 进入server目录修改conf.ini
 
 启动server `go build main.go`
+
+# 项目结构
+
+## 用例图
+
+![ToolBox用例图](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/ToolBox%E7%94%A8%E4%BE%8B%E5%9B%BE.png)
+
+## 架构图
+
+![ToolBox架构图](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/ToolBox%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
+
+## 时序图
+
+### 注册
+
+![ToolBox注册时序图](https://cos-1310107767.cos.ap-beijing.myqcloud.com/pic/ToolBox%E6%B3%A8%E5%86%8C%E6%97%B6%E5%BA%8F%E5%9B%BE.png)
 
 
 
@@ -142,9 +178,4 @@ r.PUT(userApiURI+"/pay", middleware.AuthMiddleWare(), api.UserChangePay)
 | 月（Month）         | 是       | 1-12 or JAN-DEC | * / , –        |
 | 星期（Day of week） | 是       | 0-6 or SUN-SAT  | * / , – ?      |
 
-
-
-# 接口开发文档
-
-[接口文档ApiFox](https://www.apifox.cn/apidoc/shared-c8e90d57-35a1-4ca2-9412-e3b341d4e1b1/api-65866014)
 
