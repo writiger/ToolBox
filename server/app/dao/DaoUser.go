@@ -47,3 +47,9 @@ func UserChangePayInfo(inputUser *domain.User) error {
 	_, err := engine.ID(inputUser.Id).Update(inputUser)
 	return err
 }
+
+func UserGetAll() ([]domain.User, error) {
+	var res []domain.User
+	err := engine.Cols("base_disk", "pay_day").Find(&res)
+	return res, err
+}

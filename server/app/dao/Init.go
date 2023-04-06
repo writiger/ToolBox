@@ -19,4 +19,5 @@ var c *utils.Conf
 func init() {
 	engine = domain.InitSqlDB()
 	c = utils.GetConf()
+	rc = utils.RedisDb
 }
