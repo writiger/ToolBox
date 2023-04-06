@@ -1,10 +1,8 @@
 package utils
 
 import (
-	"fmt"
 	"github.com/robfig/cron/v3"
 	"log"
-	"server/app/dao"
 )
 
 func InitSchedule() *cron.Cron {
@@ -19,5 +17,5 @@ func InitSchedule() *cron.Cron {
 func addPay() {
 	log.Println("开始导入工资")
 	defer log.Println("导入工资结束")
-	fmt.Println(dao.UserGetAll())
+
 }
